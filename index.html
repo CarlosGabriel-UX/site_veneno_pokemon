@@ -7,19 +7,20 @@
   <meta name="description" content="Veneno Pokemon: o macro para assinantes de OptPokemon. Automatize sua caçada, cura e coleta com configuração simples e suporte dedicado." />
   <meta property="og:title" content="Veneno Pokemon | Macro para OptPokemon" />
   <meta property="og:description" content="Assine o Veneno Pokemon e automatize sua rotina no OptPokemon." />
-  <meta name="theme-color" content="#0d0a14" />
+  <meta name="theme-color" content="#09090b" />
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
+  <div class="scanlines" aria-hidden="true"></div>
   <header class="nav" id="topo">
     <div class="container nav__inner">
       <a href="#topo" class="brand" aria-label="Veneno Pokemon, início">
         <img src="assets/logo.svg" alt="" width="36" height="36" />
-        <span>Veneno<strong>Pokemon</strong></span>
+        <span>veneno<strong>_pokemon</strong></span>
       </a>
       <button class="nav__toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
         <span></span><span></span><span></span>
@@ -40,8 +41,8 @@
       <div class="hero__glow" aria-hidden="true"></div>
       <div class="container hero__inner">
         <div class="hero__text">
-          <span class="pill">🧪 Macro para OptPokemon</span>
-          <h1>Deixe o <span class="grad">veneno</span> trabalhar enquanto você descansa.</h1>
+          <span class="pill">root@veneno:~$ ./macro --game optpokemon</span>
+          <h1 class="glitch" data-text="Deixe o veneno trabalhar enquanto você descansa.">Deixe o <span class="grad">veneno</span> trabalhar enquanto você descansa.</h1>
           <p class="lead">O Veneno Pokemon automatiza caçada, cura, coleta de loot e rotinas repetitivas no OptPokemon. Configure em minutos e acompanhe tudo pela sua área de assinante.</p>
           <div class="hero__cta">
             <a href="#planos" class="btn btn--primary">Ver planos</a>
@@ -56,12 +57,12 @@
         <div class="hero__card" aria-hidden="true">
           <div class="term">
             <div class="term__bar"><i></i><i></i><i></i><span>veneno.log</span></div>
-            <pre class="term__body"><code><span class="c-g">[ok]</span> Perfil "Caçada Rocket" carregado
+            <pre class="term__body" id="term"><code><span class="c-g">[ok]</span> Perfil "Caçada Rocket" carregado
 <span class="c-g">[ok]</span> Auto-cura: HP &lt; 60%
 <span class="c-p">[hunt]</span> Alvo encontrado: Gengar
 <span class="c-p">[hunt]</span> Usando ataque: Sludge Bomb
 <span class="c-y">[loot]</span> +3 Poison Barb, +1 Ultra Ball
-<span class="c-g">[ok]</span> Retornando à rota...<span class="caret">▍</span></code></pre>
+<span class="c-g">[ok]</span> Retornando à rota...</code><span class="caret">█</span></pre>
           </div>
         </div>
       </div>
@@ -77,32 +78,32 @@
         </header>
         <div class="grid grid--3">
           <article class="card">
-            <div class="card__icon">🎯</div>
+            <div class="card__icon">HNT</div>
             <h3>Caçada automática</h3>
             <p>Define rotas, alvos e prioridades de ataque. O macro procura, ataca e volta para a rota sozinho.</p>
           </article>
           <article class="card">
-            <div class="card__icon">💚</div>
+            <div class="card__icon">HP+</div>
             <h3>Auto-cura e revive</h3>
             <p>Gatilhos de HP e status configuráveis para usar poções, revives e trocar de Pokémon na hora certa.</p>
           </article>
           <article class="card">
-            <div class="card__icon">🎒</div>
+            <div class="card__icon">LOT</div>
             <h3>Coleta de loot</h3>
             <p>Pega os itens que importam e ignora o resto, com filtros por nome e valor.</p>
           </article>
           <article class="card">
-            <div class="card__icon">⚙️</div>
+            <div class="card__icon">CFG</div>
             <h3>Perfis prontos</h3>
             <p>Mais de 30 rotinas prontas para começar sem configurar nada do zero. Importe e use.</p>
           </article>
           <article class="card">
-            <div class="card__icon">🔔</div>
+            <div class="card__icon">ALR</div>
             <h3>Alertas</h3>
             <p>Aviso quando o personagem morre, a mochila enche ou algo sai do esperado.</p>
           </article>
           <article class="card">
-            <div class="card__icon">🔄</div>
+            <div class="card__icon">UPD</div>
             <h3>Atualizações contínuas</h3>
             <p>Acompanhamos as mudanças do jogo e liberamos novas versões para todos os assinantes.</p>
           </article>
@@ -267,7 +268,7 @@
     <div class="container footer__inner">
       <div class="brand">
         <img src="assets/logo.svg" alt="" width="28" height="28" />
-        <span>Veneno<strong>Pokemon</strong></span>
+        <span>veneno<strong>_pokemon</strong></span>
       </div>
       <nav class="footer__links">
         <a href="#" data-link="discord">Discord</a>

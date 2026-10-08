@@ -5,6 +5,37 @@
   var ano = document.getElementById("ano");
   if (ano) ano.textContent = new Date().getFullYear();
 
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Terminal digitando no hero
+  var term = document.getElementById("term");
+  if (term && !reduce) {
+    var code = term.querySelector("code");
+    var lines = code.innerHTML.split("\n");
+    code.innerHTML = "";
+    var li = 0;
+    var typeLine = function () {
+      if (li >= lines.length) {
+        setTimeout(function () { code.innerHTML = ""; li = 0; typeLine(); }, 4000);
+        return;
+      }
+      var tmp = document.createElement("div");
+      tmp.innerHTML = lines[li];
+      var tag = tmp.firstElementChild ? tmp.firstElementChild.outerHTML : "";
+      var text = tmp.textContent.slice(tmp.firstElementChild ? tmp.firstElementChild.textContent.length : 0);
+      var base = code.innerHTML + (li ? "\n" : "") + tag;
+      var ci = 0;
+      var tick = setInterval(function () {
+        ci++;
+        var span = document.createElement("span");
+        span.textContent = text.slice(0, ci);
+        code.innerHTML = base + span.innerHTML;
+        if (ci >= text.length) { clearInterval(tick); li++; setTimeout(typeLine, 280); }
+      }, 22);
+    };
+    typeLine();
+  }
+
   // Menu mobile
   var toggle = document.querySelector(".nav__toggle");
   var menu = document.getElementById("menu");
