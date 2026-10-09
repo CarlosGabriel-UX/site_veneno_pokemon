@@ -5,8 +5,9 @@
       <stop offset="1" stop-color="#00e5ff"/>
     </linearGradient>
   </defs>
-  <circle cx="32" cy="32" r="30" fill="#09090b" stroke="url(#g)" stroke-width="4"/>
-  <path d="M32 12c-7 10-14 17-14 25a14 14 0 0 0 28 0c0-8-7-15-14-25z" fill="url(#g)"/>
-  <circle cx="27" cy="38" r="3" fill="#09090b"/>
-  <circle cx="37" cy="34" r="2" fill="#09090b"/>
+  <rect x="2" y="2" width="60" height="60" rx="10" fill="#09090b" stroke="url(#g)" stroke-width="4"/>
+  <g transform="rotate(-45 32 32)" fill="none" stroke="url(#g)" stroke-width="4" stroke-linecap="round">
+    <rect x="22" y="18" width="20" height="24" rx="2"/>
+    <path d="M32 42v12M26 12h12M32 12v6M26 26h6M26 32h6"/>
+  </g>
 </svg>

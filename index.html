@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Veneno Pokemon | Macro para OptPokemon</title>
-  <meta name="description" content="Veneno Pokemon: o macro para assinantes de OptPokemon. Automatize sua caçada, cura e coleta com configuração simples e suporte dedicado." />
-  <meta property="og:title" content="Veneno Pokemon | Macro para OptPokemon" />
-  <meta property="og:description" content="Assine o Veneno Pokemon e automatize sua rotina no OptPokemon." />
+  <title>Injection | Scripts e macros para jogos</title>
+  <meta name="description" content="Injection: scripts e macros por assinatura para vários jogos. Escolha o jogo, veja os recursos e assine." />
+  <meta property="og:title" content="Injection | Scripts e macros para jogos" />
+  <meta property="og:description" content="Injection: scripts e macros por assinatura para vários jogos. Escolha o jogo, veja os recursos e assine." />
   <meta name="theme-color" content="#09090b" />
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,17 +18,16 @@
   <div class="scanlines" aria-hidden="true"></div>
   <header class="nav" id="topo">
     <div class="container nav__inner">
-      <a href="#topo" class="brand" aria-label="Veneno Pokemon, início">
+      <a href="index.html" class="brand" aria-label="Injection, início">
         <img src="assets/logo.svg" alt="" width="36" height="36" />
-        <span>veneno<strong>_pokemon</strong></span>
+        <span>injection<strong>_</strong></span>
       </a>
       <button class="nav__toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
         <span></span><span></span><span></span>
       </button>
       <nav class="nav__links" id="menu">
-        <a href="#recursos">Recursos</a>
+        <a href="#jogos">Jogos</a>
         <a href="#como-funciona">Como funciona</a>
-        <a href="#planos">Planos</a>
         <a href="#faq">FAQ</a>
         <a href="area.html" class="btn btn--ghost btn--sm">Área do assinante</a>
       </nav>
@@ -36,82 +35,42 @@
   </header>
 
   <main>
-    <!-- HERO -->
     <section class="hero">
       <div class="hero__glow" aria-hidden="true"></div>
       <div class="container hero__inner">
         <div class="hero__text">
-          <span class="pill">root@veneno:~$ ./macro --game optpokemon</span>
-          <h1 class="glitch" data-text="Deixe o veneno trabalhar enquanto você descansa.">Deixe o <span class="grad">veneno</span> trabalhar enquanto você descansa.</h1>
-          <p class="lead">O Veneno Pokemon automatiza caçada, cura, coleta de loot e rotinas repetitivas no OptPokemon. Configure em minutos e acompanhe tudo pela sua área de assinante.</p>
+          <span class="pill">root@injection:~$ ./inject --list</span>
+          <h1 class="glitch" data-text="Scripts para os seus jogos. Um só lugar.">Scripts para os seus jogos. <span class="grad">Um só lugar.</span></h1>
+          <p class="lead">O Injection reúne nossos scripts e macros para vários jogos. Escolha o jogo, veja o que o script faz e assine o plano que combina com você.</p>
           <div class="hero__cta">
-            <a href="#planos" class="btn btn--primary">Ver planos</a>
+            <a href="#jogos" class="btn btn--primary">Escolher jogo</a>
             <a href="#como-funciona" class="btn btn--ghost">Como funciona</a>
           </div>
-          <ul class="hero__stats">
-            <li><strong>24/7</strong><span>rodando</span></li>
-            <li><strong>+30</strong><span>rotinas prontas</span></li>
-            <li><strong>Suporte</strong><span>no Discord</span></li>
-          </ul>
         </div>
         <div class="hero__card" aria-hidden="true">
           <div class="term">
-            <div class="term__bar"><i></i><i></i><i></i><span>veneno.log</span></div>
-            <pre class="term__body" id="term"><code><span class="c-g">[ok]</span> Perfil "Caçada Rocket" carregado
-<span class="c-g">[ok]</span> Auto-cura: HP &lt; 60%
-<span class="c-p">[hunt]</span> Alvo encontrado: Gengar
-<span class="c-p">[hunt]</span> Usando ataque: Sludge Bomb
-<span class="c-y">[loot]</span> +3 Poison Barb, +1 Ultra Ball
-<span class="c-g">[ok]</span> Retornando à rota...</code><span class="caret">█</span></pre>
+            <div class="term__bar"><i></i><i></i><i></i><span>injection.log</span></div>
+            <pre class="term__body" id="term"><code><span class="c-g">[ok]</span> Carregando catálogo...
+<span class="c-p">[inject]</span> optpokemon ......... disponível
+<span class="c-y">[build]</span> csgo ............... em breve
+<span class="c-y">[build]</span> próximo jogo ....... em votação
+<span class="c-g">[ok]</span> Escolha um jogo para continuar</code><span class="caret">█</span></pre>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- RECURSOS -->
-    <section class="section" id="recursos">
+    <section class="section" id="jogos">
       <div class="container">
         <header class="section__head">
-          <span class="eyebrow">Recursos</span>
-          <h2>Tudo que você precisa para evoluir mais rápido</h2>
-          <p>Ferramentas pensadas para a rotina de quem joga OptPokemon todos os dias.</p>
+          <span class="eyebrow">Jogos</span>
+          <h2>Escolha o seu jogo</h2>
+          <p>Cada jogo tem o seu script, os seus planos e a sua página.</p>
         </header>
-        <div class="grid grid--3">
-          <article class="card">
-            <div class="card__icon">HNT</div>
-            <h3>Caçada automática</h3>
-            <p>Define rotas, alvos e prioridades de ataque. O macro procura, ataca e volta para a rota sozinho.</p>
-          </article>
-          <article class="card">
-            <div class="card__icon">HP+</div>
-            <h3>Auto-cura e revive</h3>
-            <p>Gatilhos de HP e status configuráveis para usar poções, revives e trocar de Pokémon na hora certa.</p>
-          </article>
-          <article class="card">
-            <div class="card__icon">LOT</div>
-            <h3>Coleta de loot</h3>
-            <p>Pega os itens que importam e ignora o resto, com filtros por nome e valor.</p>
-          </article>
-          <article class="card">
-            <div class="card__icon">CFG</div>
-            <h3>Perfis prontos</h3>
-            <p>Mais de 30 rotinas prontas para começar sem configurar nada do zero. Importe e use.</p>
-          </article>
-          <article class="card">
-            <div class="card__icon">ALR</div>
-            <h3>Alertas</h3>
-            <p>Aviso quando o personagem morre, a mochila enche ou algo sai do esperado.</p>
-          </article>
-          <article class="card">
-            <div class="card__icon">UPD</div>
-            <h3>Atualizações contínuas</h3>
-            <p>Acompanhamos as mudanças do jogo e liberamos novas versões para todos os assinantes.</p>
-          </article>
-        </div>
+        <div class="grid grid--3 games" id="games-grid"></div>
       </div>
     </section>
 
-    <!-- COMO FUNCIONA -->
     <section class="section section--alt" id="como-funciona">
       <div class="container">
         <header class="section__head">
@@ -119,106 +78,13 @@
           <h2>Em 3 passos você já está rodando</h2>
         </header>
         <ol class="steps">
-          <li>
-            <span class="steps__n">1</span>
-            <h3>Escolha seu plano</h3>
-            <p>Assine o plano que combina com você e receba o acesso no e-mail.</p>
-          </li>
-          <li>
-            <span class="steps__n">2</span>
-            <h3>Baixe pela área do assinante</h3>
-            <p>Entre na sua área, baixe a versão mais recente e ative com sua chave.</p>
-          </li>
-          <li>
-            <span class="steps__n">3</span>
-            <h3>Escolha um perfil e pronto</h3>
-            <p>Carregue uma rotina pronta ou monte a sua. O Veneno cuida do resto.</p>
-          </li>
+          <li><span class="steps__n">1</span><h3>Escolha o jogo e o plano</h3><p>Abra a página do jogo, compare os planos e assine.</p></li>
+          <li><span class="steps__n">2</span><h3>Baixe pela área do assinante</h3><p>Entre na sua área, baixe a versão mais recente e ative com sua chave.</p></li>
+          <li><span class="steps__n">3</span><h3>Injete e jogue</h3><p>Carregue um perfil pronto ou monte o seu. O Injection cuida do resto.</p></li>
         </ol>
       </div>
     </section>
 
-    <!-- PLANOS -->
-    <section class="section" id="planos">
-      <div class="container">
-        <header class="section__head">
-          <span class="eyebrow">Planos</span>
-          <h2>Escolha seu plano</h2>
-          <p>Cancele quando quiser. Todos os planos incluem atualizações e suporte.</p>
-        </header>
-        <div class="billing" role="group" aria-label="Período de cobrança">
-          <button class="billing__opt is-active" data-period="mensal">Mensal</button>
-          <button class="billing__opt" data-period="trimestral">Trimestral <em>-15%</em></button>
-        </div>
-        <div class="grid grid--3 plans">
-          <article class="plan">
-            <h3>Semanal</h3>
-            <p class="plan__desc">Para testar o Veneno sem compromisso.</p>
-            <p class="plan__price"><span class="cur">R$</span><span class="val" data-mensal="9,90" data-trimestral="9,90">9,90</span><span class="per">/semana</span></p>
-            <ul class="plan__list">
-              <li>1 conta do jogo</li>
-              <li>Rotinas prontas</li>
-              <li>Auto-cura e loot</li>
-              <li>Suporte via Discord</li>
-            </ul>
-            <a class="btn btn--ghost btn--block" href="#" data-checkout="semanal">Assinar</a>
-          </article>
-          <article class="plan plan--featured">
-            <span class="plan__badge">Mais popular</span>
-            <h3>Veneno</h3>
-            <p class="plan__desc">O plano completo para quem joga todo dia.</p>
-            <p class="plan__price"><span class="cur">R$</span><span class="val" data-mensal="29,90" data-trimestral="25,40">29,90</span><span class="per">/mês</span></p>
-            <ul class="plan__list">
-              <li>2 contas do jogo</li>
-              <li>Todos os recursos</li>
-              <li>Perfis exclusivos</li>
-              <li>Alertas de morte e mochila cheia</li>
-              <li>Suporte prioritário</li>
-            </ul>
-            <a class="btn btn--primary btn--block" href="#" data-checkout="veneno">Assinar agora</a>
-          </article>
-          <article class="plan">
-            <h3>Veneno Max</h3>
-            <p class="plan__desc">Para quem roda várias contas ao mesmo tempo.</p>
-            <p class="plan__price"><span class="cur">R$</span><span class="val" data-mensal="59,90" data-trimestral="50,90">59,90</span><span class="per">/mês</span></p>
-            <ul class="plan__list">
-              <li>5 contas do jogo</li>
-              <li>Tudo do plano Veneno</li>
-              <li>Acesso antecipado a novidades</li>
-              <li>Ajuda na configuração</li>
-            </ul>
-            <a class="btn btn--ghost btn--block" href="#" data-checkout="max">Assinar</a>
-          </article>
-        </div>
-        <p class="note">Preços de exemplo. O pagamento é feito por um link seguro (Pix ou cartão).</p>
-      </div>
-    </section>
-
-    <!-- DEPOIMENTOS -->
-    <section class="section section--alt">
-      <div class="container">
-        <header class="section__head">
-          <span class="eyebrow">Assinantes</span>
-          <h2>Quem usa, recomenda</h2>
-        </header>
-        <div class="grid grid--3">
-          <blockquote class="quote">
-            <p>"Configurei a caçada em 5 minutos e upei dois Pokémon durante a noite."</p>
-            <footer>Treinador anônimo</footer>
-          </blockquote>
-          <blockquote class="quote">
-            <p>"A auto-cura salvou meu time várias vezes. Vale cada centavo."</p>
-            <footer>Treinador anônimo</footer>
-          </blockquote>
-          <blockquote class="quote">
-            <p>"Suporte no Discord responde rápido e as atualizações saem logo."</p>
-            <footer>Treinador anônimo</footer>
-          </blockquote>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
     <section class="section" id="faq">
       <div class="container container--narrow">
         <header class="section__head">
@@ -226,40 +92,20 @@
           <h2>Perguntas frequentes</h2>
         </header>
         <div class="faq">
-          <details>
-            <summary>Como recebo o acesso depois de pagar?</summary>
-            <p>Assim que o pagamento é confirmado você recebe por e-mail o login da área do assinante e a sua chave de ativação.</p>
-          </details>
-          <details>
-            <summary>Funciona em qualquer computador?</summary>
-            <p>O Veneno roda no Windows 10 ou 11. Recomendamos deixar o jogo em janela com a resolução indicada no guia de instalação.</p>
-          </details>
-          <details>
-            <summary>Posso usar em mais de uma conta?</summary>
-            <p>Sim. O número de contas depende do plano: 1 no Semanal, 2 no Veneno e 5 no Veneno Max.</p>
-          </details>
-          <details>
-            <summary>Posso cancelar quando quiser?</summary>
-            <p>Pode. A assinatura não renova depois do cancelamento e você continua com acesso até o fim do período pago.</p>
-          </details>
-          <details>
-            <summary>Existe risco para a minha conta?</summary>
-            <p>Todo uso de automação em jogos online envolve risco. Leia as regras do OptPokemon e use o Veneno com responsabilidade. O Veneno Pokemon não é afiliado ao OptPokemon.</p>
-          </details>
-          <details>
-            <summary>Como falo com o suporte?</summary>
-            <p>Pelo nosso Discord ou pelo e-mail de contato abaixo. Assinantes dos planos Veneno e Max têm atendimento prioritário.</p>
-          </details>
+          <details><summary>Uma assinatura vale para todos os jogos?</summary><p>Não. Cada jogo tem a sua assinatura, com planos e preços próprios na página do jogo.</p></details>
+          <details><summary>Como recebo o acesso depois de pagar?</summary><p>Assim que o pagamento é confirmado você recebe por e-mail o login da área do assinante e a sua chave de ativação.</p></details>
+          <details><summary>Posso cancelar quando quiser?</summary><p>Pode. A assinatura não renova depois do cancelamento e você continua com acesso até o fim do período pago.</p></details>
+          <details><summary>Vocês vão lançar scripts para outros jogos?</summary><p>Sim. Entre no nosso Discord para votar no próximo jogo e ser avisado dos lançamentos.</p></details>
+          <details><summary>Como falo com o suporte?</summary><p>Pelo nosso Discord ou pelo e-mail no rodapé.</p></details>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
     <section class="cta">
       <div class="container cta__inner">
-        <h2>Pronto para injetar o veneno?</h2>
-        <p>Assine agora e comece a automatizar hoje mesmo.</p>
-        <a href="#planos" class="btn btn--primary">Escolher plano</a>
+        <h2>Pronto para injetar?</h2>
+        <p>Escolha o seu jogo e comece hoje mesmo.</p>
+        <a href="#jogos" class="btn btn--primary">Ver jogos</a>
       </div>
     </section>
   </main>
@@ -268,18 +114,20 @@
     <div class="container footer__inner">
       <div class="brand">
         <img src="assets/logo.svg" alt="" width="28" height="28" />
-        <span>veneno<strong>_pokemon</strong></span>
+        <span>injection<strong>_</strong></span>
       </div>
       <nav class="footer__links">
+        <a href="index.html#jogos">Jogos</a>
         <a href="#" data-link="discord">Discord</a>
-        <a href="mailto:contato@venenopokemon.com">contato@venenopokemon.com</a>
+        <a href="#" data-link="email">E-mail</a>
         <a href="area.html">Área do assinante</a>
       </nav>
-      <p class="footer__legal">© <span id="ano"></span> Veneno Pokemon. Não afiliado ao OptPokemon, Nintendo ou The Pokémon Company.</p>
+      <p class="footer__legal">© <span id="ano"></span> Injection. <span id="aviso">Marcas e jogos citados pertencem aos seus respectivos donos; o Injection não é afiliado a eles.</span></p>
     </div>
   </footer>
 
   <script src="assets/config.js"></script>
+  <script src="assets/games.js"></script>
   <script src="assets/main.js"></script>
 </body>
 </html>
