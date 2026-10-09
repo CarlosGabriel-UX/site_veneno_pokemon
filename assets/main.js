@@ -100,19 +100,25 @@
           (g.recursos || []).map(function (r) { return '<article class="card"><div class="card__icon">' + esc(r[0]) + '</div><h3>' + esc(r[1]) + '</h3><p>' + esc(r[2]) + '</p></article>'; }).join("") +
         '</div></div></section>' +
 
-        '<section class="section section--alt" id="planos"><div class="container"><header class="section__head"><span class="eyebrow">Planos</span>' +
-          '<h2>Escolha seu plano</h2><p>Cancele quando quiser. Todos os planos incluem atualizações e suporte.</p></header>' +
-          '<div class="billing" role="group" aria-label="Período de cobrança"><button class="billing__opt is-active" data-period="mensal">Mensal</button><button class="billing__opt" data-period="trimestral">Trimestral <em>-15%</em></button></div>' +
+        '<section class="pricing" id="planos"' + (g.slides ? ' style="--c:' + esc(g.slides[0].cor) + '"' : '') + '>' +
+          (g.slides ? '<img class="pricing__blob" src="../assets/pokemon/' + esc(g.slides[0].img) + '.png" alt="" aria-hidden="true" />' : '') +
+          '<div class="container">' +
+          '<div class="pricing__title" aria-hidden="true"><span class="pricing__word">Planos</span><span class="pricing__brand">Injection ' + esc(g.nome) + '</span></div>' +
+          '<h2 class="sr-only">Planos do Injection ' + esc(g.nome) + '</h2>' +
           '<div class="grid grid--3 plans">' +
           (g.planos || []).map(function (p) {
             return '<article class="plan' + (p.destaque ? " plan--featured" : "") + '">' +
               (p.destaque ? '<span class="plan__badge">Mais popular</span>' : '') +
-              '<h3>' + esc(p.nome) + '</h3><p class="plan__desc">' + esc(p.desc) + '</p>' +
+              '<h3>' + esc(p.nome) + '</h3>' +
               '<p class="plan__price"><span class="cur">R$</span><span class="val" data-mensal="' + esc(p.mensal) + '" data-trimestral="' + esc(p.trimestral) + '">' + esc(p.mensal) + '</span><span class="per">' + esc(p.per) + '</span></p>' +
+              '<p class="plan__desc">' + esc(p.desc) + '</p>' +
               '<ul class="plan__list">' + p.itens.map(function (i) { return '<li>' + esc(i) + '</li>'; }).join("") + '</ul>' +
-              '<a class="btn ' + (p.destaque ? "btn--primary" : "btn--ghost") + ' btn--block" href="#" data-checkout="' + esc(p.id) + '">Assinar</a></article>';
+              '<a class="btn btn--pill" href="#" data-checkout="' + esc(p.id) + '">Escolher plano</a></article>';
           }).join("") +
-          '</div><p class="note">Preços de exemplo. O pagamento é feito por um link seguro (Pix ou cartão).</p></div></section>' +
+          '</div>' +
+          '<div class="pricing__foot"><label class="switch"><input type="checkbox" id="billing-toggle" /><span class="switch__track" aria-hidden="true"></span><span>Trimestral <em>-15%</em></span></label>' +
+          '<p class="note">Preços de exemplo. Cancele quando quiser. Pagamento por link seguro (Pix ou cartão).</p></div>' +
+        '</div></section>' +
 
         '<section class="section" id="faq"><div class="container container--narrow"><header class="section__head"><span class="eyebrow">FAQ</span><h2>Perguntas frequentes</h2></header><div class="faq">' +
           (g.faq || []).map(function (f) { return '<details><summary>' + esc(f[0]) + '</summary><p>' + esc(f[1]) + '</p></details>'; }).join("") +
@@ -163,17 +169,16 @@
   }
 
   // Alternar mensal / trimestral
-  var opts = document.querySelectorAll(".billing__opt");
-  opts.forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      var period = btn.getAttribute("data-period");
-      opts.forEach(function (b) { b.classList.toggle("is-active", b === btn); });
+  var bt = document.getElementById("billing-toggle");
+  if (bt) {
+    bt.addEventListener("change", function () {
+      var period = bt.checked ? "trimestral" : "mensal";
       document.querySelectorAll(".plan__price .val").forEach(function (el) {
         var v = el.getAttribute("data-" + period);
         if (v) el.textContent = v;
       });
     });
-  });
+  }
 
   // Links de checkout e Discord
   document.querySelectorAll("[data-checkout]").forEach(function (a) {
