@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Injection OptPokemon</title>
+  <meta name="description" content="Injection OptPokemon: planos e recursos do nosso script para OptPokemon." />
+  <meta property="og:title" content="Injection OptPokemon" />
+  <meta property="og:description" content="Injection OptPokemon: planos e recursos do nosso script para OptPokemon." />
+  <meta name="theme-color" content="#09090b" />
+  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body data-game="optpokemon">
+  <div class="scanlines" aria-hidden="true"></div>
+  <header class="nav" id="topo">
+    <div class="container nav__inner">
+      <a href="../index.html" class="brand" aria-label="Injection, início">
+        <img src="../assets/logo.svg" alt="" width="36" height="36" />
+        <span>injection<strong>_</strong></span>
+      </a>
+      <button class="nav__toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav__links" id="menu">
+        <a href="../index.html#jogos">Jogos</a>
+        <a href="#recursos">Recursos</a>
+        <a href="#planos">Planos</a>
+        <a href="#faq">FAQ</a>
+        <a href="../area.html" class="btn btn--ghost btn--sm">Área do assinante</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="game"></main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="brand">
+        <img src="../assets/logo.svg" alt="" width="28" height="28" />
+        <span>injection<strong>_</strong></span>
+      </div>
+      <nav class="footer__links">
+        <a href="../index.html#jogos">Jogos</a>
+        <a href="#" data-link="discord">Discord</a>
+        <a href="#" data-link="email">E-mail</a>
+        <a href="../area.html">Área do assinante</a>
+      </nav>
+      <p class="footer__legal">© <span id="ano"></span> Injection. <span id="aviso">Marcas e jogos citados pertencem aos seus respectivos donos; o Injection não é afiliado a eles.</span></p>
+    </div>
+  </footer>
+
+  <script src="../assets/config.js"></script>
+  <script src="../assets/games.js"></script>
+  <script src="../assets/main.js"></script>
+</body>
+</html>
