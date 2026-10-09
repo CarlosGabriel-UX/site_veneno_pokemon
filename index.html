@@ -7,15 +7,14 @@
   <meta name="description" content="Injection: scripts e macros por assinatura para vários jogos. Escolha o jogo, veja os recursos e assine." />
   <meta property="og:title" content="Injection | Scripts e macros para jogos" />
   <meta property="og:description" content="Injection: scripts e macros por assinatura para vários jogos. Escolha o jogo, veja os recursos e assine." />
-  <meta name="theme-color" content="#09090b" />
+  <meta name="theme-color" content="#0b0b0c" />
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
-  <div class="scanlines" aria-hidden="true"></div>
   <header class="nav" id="topo">
     <div class="container nav__inner">
       <a href="index.html" class="brand" aria-label="Injection, início">
@@ -35,30 +34,7 @@
   </header>
 
   <main>
-    <section class="hero">
-      <div class="hero__glow" aria-hidden="true"></div>
-      <div class="container hero__inner">
-        <div class="hero__text">
-          <span class="pill">root@injection:~$ ./inject --list</span>
-          <h1 class="glitch" data-text="Scripts para os seus jogos. Um só lugar.">Scripts para os seus jogos. <span class="grad">Um só lugar.</span></h1>
-          <p class="lead">O Injection reúne nossos scripts e macros para vários jogos. Escolha o jogo, veja o que o script faz e assine o plano que combina com você.</p>
-          <div class="hero__cta">
-            <a href="#jogos" class="btn btn--primary">Escolher jogo</a>
-            <a href="#como-funciona" class="btn btn--ghost">Como funciona</a>
-          </div>
-        </div>
-        <div class="hero__card" aria-hidden="true">
-          <div class="term">
-            <div class="term__bar"><i></i><i></i><i></i><span>injection.log</span></div>
-            <pre class="term__body" id="term"><code><span class="c-g">[ok]</span> Carregando catálogo...
-<span class="c-p">[inject]</span> optpokemon ......... disponível
-<span class="c-y">[build]</span> csgo ............... em breve
-<span class="c-y">[build]</span> próximo jogo ....... em votação
-<span class="c-g">[ok]</span> Escolha um jogo para continuar</code><span class="caret">█</span></pre>
-          </div>
-        </div>
-      </div>
-    </section>
+    <section id="hub-stage"></section>
 
     <section class="section" id="jogos">
       <div class="container">

@@ -11,15 +11,14 @@ window.INJECTION_GAMES = [
     resumo: "Caçada automática, auto-cura, coleta de loot e rotinas prontas.",
     titulo: "Automatize sua rotina no OptPokemon.",
     descricao: "O Injection OptPokemon cuida da caçada, da cura, do loot e das rotinas repetitivas. Configure em minutos e acompanhe tudo pela sua área de assinante.",
-    stats: [["24/7", "rodando"], ["+30", "rotinas prontas"], ["Suporte", "no Discord"]],
-    log: [
-      ["ok", "Perfil \"Caçada Rocket\" carregado"],
-      ["ok", "Auto-cura: HP < 60%"],
-      ["run", "Alvo encontrado: Gengar"],
-      ["run", "Usando ataque: Sludge Bomb"],
-      ["loot", "+3 Poison Barb, +1 Ultra Ball"],
-      ["ok", "Retornando à rota..."]
+    // Slides do topo (imagens em assets/pokemon/)
+    slides: [
+      { img: "gengar", palavra: "GENGAR", cor: "#7b3fe4", texto: "Pronto para deixar o script caçar por você enquanto descansa e voltar com a mochila cheia?" },
+      { img: "mewtwo", palavra: "MEWTWO", cor: "#b06bd6", texto: "Automação estável, perfis prontos e atualização a cada mudança do jogo." },
+      { img: "charizard", palavra: "CHARIZARD", cor: "#ff6a2b", texto: "Upe mais rápido com caçada automática, auto-cura e coleta de loot." },
+      { img: "lucario", palavra: "LUCARIO", cor: "#3f7fe4", texto: "Configure em minutos e acompanhe tudo pela sua área de assinante." }
     ],
+    stats: [["24/7", "rodando"], ["+30", "rotinas prontas"], ["Suporte", "no Discord"]],
     recursos: [
       ["HNT", "Caçada automática", "Define rotas, alvos e prioridades de ataque. O script procura, ataca e volta para a rota sozinho."],
       ["HP+", "Auto-cura e revive", "Gatilhos de HP e status configuráveis para usar poções, revives e trocar de Pokémon na hora certa."],

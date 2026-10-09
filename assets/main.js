@@ -21,7 +21,37 @@
     });
   }
 
+
+  // Palco do topo: slider com Pokémon (estilo pôster de jogo)
+  function stage(slides, o) {
+    return '<section class="stage" data-stage>' +
+      '<div class="stage__band" aria-hidden="true"></div>' +
+      slides.map(function (s, i) {
+        var img = o.base + "assets/pokemon/" + s.img + ".png";
+        return '<div class="stage__slide' + (i === 0 ? " is-active" : "") + '" style="--c:' + esc(s.cor) + '" aria-hidden="' + (i === 0 ? "false" : "true") + '">' +
+          '<img class="stage__poke" src="' + img + '" alt="' + esc(s.palavra) + '" />' +
+          '<div class="container stage__inner">' +
+            '<div class="stage__bubble"><p>' + esc(s.texto) + '</p></div>' +
+            '<p class="stage__word" style="background-image:linear-gradient(180deg,rgba(255,255,255,.85),rgba(120,120,120,.6)),url(' + img + ')">' + esc(s.palavra) + '</p>' +
+          '</div></div>';
+      }).join("") +
+      '<div class="container stage__bar">' +
+        '<div class="stage__meta"><span class="stage__label">' + esc(o.label) + '</span>' +
+          '<div class="stage__platforms"><span>Windows 10/11</span><span>Suporte no Discord</span></div></div>' +
+        '<a class="btn btn--primary stage__cta" href="' + esc(o.href) + '">' + esc(o.cta) + '</a>' +
+        '<div class="stage__nav"><div class="stage__dots">' + slides.map(function (s, i) { return '<button aria-label="Slide ' + (i + 1) + '"' + (i === 0 ? ' class="is-active"' : '') + '></button>'; }).join("") + '</div>' +
+        '<button class="stage__next" type="button">Próximo <span aria-hidden="true">›</span></button></div>' +
+      '</div>' +
+      '<h1 class="sr-only">' + esc(o.titulo) + '</h1>' +
+    '</section>';
+  }
+
   // Vitrine de jogos (página inicial)
+  var hubStage = document.getElementById("hub-stage");
+  if (hubStage && games[0] && games[0].slides) {
+    hubStage.outerHTML = stage(games[0].slides, { base: "", label: "Em destaque: Injection " + games[0].nome, href: "jogos/" + games[0].slug + ".html", cta: "Ver planos", titulo: "Injection: scripts e macros para jogos" });
+  }
+
   var grid = document.getElementById("games-grid");
   if (grid) {
     grid.innerHTML = games.map(function (g) {
@@ -51,25 +81,19 @@
       var nome = g ? g.nome : "este jogo";
       document.querySelectorAll('.nav__links a[href^="#"]').forEach(function (a) { a.remove(); });
       main.innerHTML = '<section class="auth"><div class="hero__glow" aria-hidden="true"></div><div class="auth__card">' +
-        '<p class="auth__prompt">&gt; build em andamento_</p>' +
+        '<p class="auth__prompt">Em desenvolvimento</p>' +
         '<h1>Injection ' + esc(nome) + '</h1>' +
         '<p>Estamos desenvolvendo o script para ' + esc(nome) + '. Entre no Discord para ser avisado assim que lançar.</p>' +
         '<a class="btn btn--primary btn--block" href="#" data-link="discord">Avise-me no Discord</a>' +
         '<p class="auth__alt"><a href="../index.html#jogos">Ver outros jogos</a></p></div></section>';
     } else {
       document.title = "Injection " + g.nome + " | Planos e recursos";
-      var tagMap = { ok: "c-g", run: "c-p", loot: "c-y" };
-      main.innerHTML =
-        '<section class="hero"><div class="hero__glow" aria-hidden="true"></div><div class="container hero__inner"><div class="hero__text">' +
-          '<span class="pill">root@injection:~$ ./inject --game ' + esc(g.slug) + '</span>' +
-          '<h1 class="glitch" data-text="Injection ' + esc(g.nome) + '">Injection <span class="grad">' + esc(g.nome) + '</span></h1>' +
-          '<p class="hero__sub">' + esc(g.titulo) + '</p>' +
-          '<p class="lead">' + esc(g.descricao) + '</p>' +
-          '<div class="hero__cta"><a href="#planos" class="btn btn--primary">Ver planos</a><a href="#recursos" class="btn btn--ghost">Recursos</a></div>' +
+            main.innerHTML =
+        (g.slides ? stage(g.slides, { base: "../", label: "Injection " + g.nome, href: "#planos", cta: "Assinar", titulo: "Injection " + g.nome }) : "") +
+        '<section class="section section--intro"><div class="container container--narrow intro">' +
+          '<span class="eyebrow">Injection ' + esc(g.nome) + '</span><h2>' + esc(g.titulo) + '</h2><p class="lead">' + esc(g.descricao) + '</p>' +
           '<ul class="hero__stats">' + (g.stats || []).map(function (s) { return '<li><strong>' + esc(s[0]) + '</strong><span>' + esc(s[1]) + '</span></li>'; }).join("") + '</ul>' +
-        '</div><div class="hero__card" aria-hidden="true"><div class="term"><div class="term__bar"><i></i><i></i><i></i><span>' + esc(g.slug) + '.log</span></div>' +
-          '<pre class="term__body" id="term"><code>' + (g.log || []).map(function (l) { return '<span class="' + (tagMap[l[0]] || "c-g") + '">[' + esc(l[0]) + ']</span> ' + esc(l[1]); }).join("\n") + '</code><span class="caret">█</span></pre>' +
-        '</div></div></div></section>' +
+        '</div></section>' +
 
         '<section class="section" id="recursos"><div class="container"><header class="section__head"><span class="eyebrow">Recursos</span>' +
           '<h2>O que o script faz</h2></header><div class="grid grid--3">' +
@@ -104,34 +128,23 @@
 
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Terminal digitando no hero
-  var term = document.getElementById("term");
-  if (term && !reduce) {
-    var code = term.querySelector("code");
-    var lines = code.innerHTML.split("\n");
-    code.innerHTML = "";
-    var li = 0;
-    var typeLine = function () {
-      if (li >= lines.length) {
-        setTimeout(function () { code.innerHTML = ""; li = 0; typeLine(); }, 4000);
-        return;
-      }
-      var tmp = document.createElement("div");
-      tmp.innerHTML = lines[li];
-      var tag = tmp.firstElementChild ? tmp.firstElementChild.outerHTML : "";
-      var text = tmp.textContent.slice(tmp.firstElementChild ? tmp.firstElementChild.textContent.length : 0);
-      var base = code.innerHTML + (li ? "\n" : "") + tag;
-      var ci = 0;
-      var tick = setInterval(function () {
-        ci++;
-        var span = document.createElement("span");
-        span.textContent = text.slice(0, ci);
-        code.innerHTML = base + span.innerHTML;
-        if (ci >= text.length) { clearInterval(tick); li++; setTimeout(typeLine, 280); }
-      }, 22);
-    };
-    typeLine();
-  }
+  // Slider do palco
+  document.querySelectorAll("[data-stage]").forEach(function (st) {
+    var slides = st.querySelectorAll(".stage__slide");
+    var dots = st.querySelectorAll(".stage__dots button");
+    var cur = 0, timer;
+    function go(n) {
+      cur = (n + slides.length) % slides.length;
+      slides.forEach(function (s, i) { s.classList.toggle("is-active", i === cur); s.setAttribute("aria-hidden", String(i !== cur)); });
+      dots.forEach(function (d, i) { d.classList.toggle("is-active", i === cur); });
+      st.style.setProperty("--c", slides[cur].style.getPropertyValue("--c"));
+      restart();
+    }
+    function restart() { clearInterval(timer); if (!reduce && slides.length > 1) timer = setInterval(function () { go(cur + 1); }, 6500); }
+    st.querySelector(".stage__next").addEventListener("click", function () { go(cur + 1); });
+    dots.forEach(function (d, i) { d.addEventListener("click", function () { go(i); }); });
+    go(0);
+  });
 
   // Menu mobile
   var toggle = document.querySelector(".nav__toggle");
