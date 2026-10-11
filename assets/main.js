@@ -152,6 +152,73 @@
     go(0);
   });
 
+  // ===== Animações =====
+  var finePointer = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  // Entrada ao rolar (com atraso em cascata dentro de cada grupo)
+  var revealSel = ".section__head, .intro, .pricing__title, .game, .card, .steps li, .plan, .faq details, .cta__inner, .pricing__foot";
+  var revealEls = document.querySelectorAll(revealSel);
+  if (!reduce && "IntersectionObserver" in window) {
+    revealEls.forEach(function (el) {
+      var sibs = el.parentElement ? Array.prototype.filter.call(el.parentElement.children, function (c) { return c.matches(revealSel); }) : [];
+      el.style.setProperty("--d", (Math.max(0, sibs.indexOf(el)) * 90) + "ms");
+      el.classList.add("reveal");
+    });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    revealEls.forEach(function (el) { io.observe(el); });
+  }
+
+  // Parallax do palco seguindo o mouse
+  document.querySelectorAll("[data-stage]").forEach(function (st) {
+    if (reduce || !finePointer) return;
+    st.addEventListener("pointermove", function (e) {
+      var r = st.getBoundingClientRect();
+      st.style.setProperty("--mx", ((e.clientX - r.left) / r.width - 0.5).toFixed(3));
+      st.style.setProperty("--my", ((e.clientY - r.top) / r.height - 0.5).toFixed(3));
+    });
+    st.addEventListener("pointerleave", function () { st.style.setProperty("--mx", 0); st.style.setProperty("--my", 0); });
+  });
+
+  // Cards com inclinação 3D e reflexo de luz
+  if (!reduce && finePointer) {
+    document.querySelectorAll(".plan, .game, .card").forEach(function (el) {
+      el.classList.add("tilt");
+      el.addEventListener("pointermove", function (e) {
+        var r = el.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        el.style.transform = "perspective(900px) rotateX(" + ((0.5 - y) * 8).toFixed(2) + "deg) rotateY(" + ((x - 0.5) * 10).toFixed(2) + "deg) translateY(-4px)";
+        el.style.setProperty("--px", (x * 100).toFixed(1) + "%");
+        el.style.setProperty("--py", (y * 100).toFixed(1) + "%");
+      });
+      el.addEventListener("pointerleave", function () { el.style.transform = ""; });
+    });
+  }
+
+  // Menu fica mais compacto ao rolar
+  var nav = document.querySelector(".nav");
+  if (nav) {
+    var onScroll = function () { nav.classList.toggle("nav--scrolled", window.scrollY > 24); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  }
+
+  // Preço contando ao trocar mensal/trimestral
+  function countTo(el, target) {
+    var to = parseFloat(target.replace(",", "."));
+    var from = parseFloat(el.textContent.replace(",", ".")) || 0;
+    if (reduce || from === to) { el.textContent = target; return; }
+    var t0 = performance.now(), dur = 450;
+    (function step(now) {
+      var k = Math.min(1, (now - t0) / dur), ease = 1 - Math.pow(1 - k, 3);
+      el.textContent = (from + (to - from) * ease).toFixed(2).replace(".", ",");
+      if (k < 1) requestAnimationFrame(step); else el.textContent = target;
+    })(t0);
+  }
+
   // Menu mobile
   var toggle = document.querySelector(".nav__toggle");
   var menu = document.getElementById("menu");
@@ -175,7 +242,7 @@
       var period = bt.checked ? "trimestral" : "mensal";
       document.querySelectorAll(".plan__price .val").forEach(function (el) {
         var v = el.getAttribute("data-" + period);
-        if (v) el.textContent = v;
+        if (v) countTo(el, v);
       });
     });
   }
