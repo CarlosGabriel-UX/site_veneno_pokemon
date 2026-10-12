@@ -13,12 +13,12 @@ window.INJECTION_GAMES = [
     descricao: "O Injection OptPokemon cuida da caçada, da cura, do loot e das rotinas repetitivas. Configure em minutos e acompanhe tudo pela sua área de assinante.",
     // Cor de destaque da página e do card na vitrine
     cor: "#ff2d3f",
-    // Slides do topo (ilustrações próprias em assets/arte/)
+    // Slides do topo (imagens em assets/pokemon/ ou assets/arte/)
     slides: [
-      { img: "arte/sombra.svg", palavra: "SOMBRA", cor: "#7b3fe4", texto: "Pronto para deixar o script caçar por você enquanto descansa e voltar com a mochila cheia?" },
-      { img: "arte/psiquico.svg", palavra: "PSÍQUICO", cor: "#b06bd6", texto: "Automação estável, perfis prontos e atualização a cada mudança do jogo." },
-      { img: "arte/chamas.svg", palavra: "CHAMAS", cor: "#ff6a2b", texto: "Upe mais rápido com caçada automática, auto-cura e coleta de loot." },
-      { img: "arte/aura.svg", palavra: "AURA", cor: "#3f7fe4", texto: "Configure em minutos e acompanhe tudo pela sua área de assinante." }
+      { img: "pokemon/gengar.png", palavra: "GENGAR", cor: "#7b3fe4", texto: "Pronto para deixar o script caçar por você enquanto descansa e voltar com a mochila cheia?" },
+      { img: "pokemon/mewtwo.png", palavra: "MEWTWO", cor: "#b06bd6", texto: "Automação estável, perfis prontos e atualização a cada mudança do jogo." },
+      { img: "pokemon/charizard.png", palavra: "CHARIZARD", cor: "#ff6a2b", texto: "Upe mais rápido com caçada automática, auto-cura e coleta de loot." },
+      { img: "pokemon/lucario.png", palavra: "LUCARIO", cor: "#3f7fe4", texto: "Configure em minutos e acompanhe tudo pela sua área de assinante." }
     ],
     // Status do script (aparece no topo, na vitrine e na área do assinante).
     // estado: "online" | "manutencao" | "offline". Atualize a data a cada versão nova.
