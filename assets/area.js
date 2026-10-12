@@ -1,15 +1,36 @@
-// Área do assinante: login por link no e-mail (Supabase) e painel com chave, plano, PCs e download.
+// Área do assinante: login com e-mail e senha (ou link no e-mail), redefinição de senha (Supabase)
+// e painel com chave, plano, PCs e download.
 (function () {
   var I = window.INJ || {};
   var cfg = I.cfg || window.INJECTION_CONFIG || {};
   var esc = I.esc;
   var login = document.getElementById("login");
   var painel = document.getElementById("painel");
-  var form = document.getElementById("login-form");
-  var msg = document.getElementById("login-msg");
-  if (!login || !painel || !form) return;
+  if (!login || !painel) return;
+
+  var EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+  var AQUI = location.origin + location.pathname;
+  // Link de "redefinir senha" do e-mail: abre direto o formulário de nova senha
+  var recuperando = /type=recovery/.test(location.hash);
+  var hashErro = /error_description=/.test(location.hash);
 
   function aviso(el, html) { el.innerHTML = html; el.hidden = false; }
+  function msgDe(form) { return form.querySelector(".auth__msg"); }
+  function ocupado(form, sim, texto) {
+    var b = form.querySelector("button[type=submit]");
+    if (sim) { b.dataset.txt = b.textContent; b.textContent = texto; } else if (b.dataset.txt) b.textContent = b.dataset.txt;
+    b.disabled = sim;
+  }
+  function lembrar(email) { try { localStorage.setItem("inj_email", email); } catch (e) { /* sem storage */ } }
+
+  var modoAtual = "entrar";
+  function modo(m) {
+    modoAtual = m;
+    login.querySelectorAll(".auth__modo").forEach(function (d) { d.hidden = d.getAttribute("data-modo") !== m; });
+    login.querySelectorAll(".auth__msg").forEach(function (el) { el.hidden = true; });
+    var f = login.querySelector('[data-modo="' + m + '"] input');
+    if (f && document.activeElement && document.activeElement.closest && document.activeElement.closest(".auth")) f.focus();
+  }
 
   // Volta do Mercado Pago
   var pg = new URLSearchParams(location.search).get("pagamento");
@@ -21,27 +42,120 @@
   };
   if (pg && textosPg[pg]) { aviso(pgMsg, esc(textosPg[pg])); pgMsg.className = "auth__aviso auth__aviso--" + pg; }
 
+  var forms = {};
+  ["entrar", "criar", "esqueci", "link", "nova"].forEach(function (k) { forms[k] = document.getElementById("form-" + k); });
+
   if (!window.supabase || !cfg.supabaseUrl) {
-    form.addEventListener("submit", function (e) { e.preventDefault(); aviso(msg, "Login indisponível no momento. Fale com o suporte no Discord."); });
+    Object.keys(forms).forEach(function (k) {
+      forms[k].addEventListener("submit", function (e) { e.preventDefault(); aviso(msgDe(forms[k]), "Login indisponível no momento. Fale com o suporte no Discord."); });
+    });
     return;
   }
   var sb = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseKey, { auth: { persistSession: true, detectSessionInUrl: true } });
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+  function erroTexto(err, padrao) {
+    var m = (err && err.message) || "";
+    if (/invalid login credentials/i.test(m)) return "E-mail ou senha incorretos. Se nunca criou senha, use \u201cEsqueci minha senha\u201d para criar uma.";
+    if (/email not confirmed/i.test(m)) return "Confirme seu e-mail primeiro: abra o link que enviamos (confira o spam).";
+    if (/rate|seconds|too many/i.test(m)) return "Muitas tentativas seguidas. Espere um minuto e tente de novo.";
+    if (/same.*password|different from the old/i.test(m)) return "A nova senha precisa ser diferente da atual.";
+    if (/weak|at least|characters/i.test(m)) return "Senha fraca. Use pelo menos 8 caracteres, misturando letras e números.";
+    return padrao;
+  }
+  function pegaEmail(form) {
     var email = form.email.value.trim();
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { aviso(msg, "Confira o e-mail."); form.email.focus(); return; }
-    var btn = form.querySelector("button");
-    btn.disabled = true; btn.textContent = "Enviando…";
-    sb.auth.signInWithOtp({ email: email, options: { emailRedirectTo: location.origin + location.pathname } }).then(function (r) {
-      btn.disabled = false; btn.textContent = "Enviar link de acesso";
-      if (r.error) {
-        var t = /rate|seconds/i.test(r.error.message) ? "Você pediu muitos links seguidos. Espere um minuto e tente de novo." : "Não foi possível enviar o link. Tente de novo.";
-        aviso(msg, esc(t));
-        return;
-      }
-      try { localStorage.setItem("inj_email", email); } catch (e2) { /* sem storage */ }
-      aviso(msg, "Pronto! Enviamos um link para <b>" + esc(email) + "</b>. Abra o e-mail e clique no link para entrar. Confira também o spam.");
+    if (!EMAIL_RE.test(email)) { aviso(msgDe(form), "Confira o e-mail."); form.email.focus(); return null; }
+    return email;
+  }
+  function pegaSenhas(form) {
+    var s1 = form.senha.value, s2 = form.senha2.value;
+    if (s1.length < 8) { aviso(msgDe(form), "A senha precisa ter pelo menos 8 caracteres."); form.senha.focus(); return null; }
+    if (s1 !== s2) { aviso(msgDe(form), "As senhas não são iguais."); form.senha2.focus(); return null; }
+    return s1;
+  }
+
+  login.addEventListener("click", function (e) {
+    var a = e.target.closest("[data-ir]");
+    if (!a) return;
+    e.preventDefault();
+    var m = a.getAttribute("data-ir");
+    if (m === "painel") { recuperando = false; mostrar(sessao); return; }
+    var de = forms[modoAtual], para = forms[m];
+    if (de && para && de.email && para.email && de.email.value && !para.email.value) para.email.value = de.email.value;
+    modo(m);
+  });
+
+  forms.entrar.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var f = forms.entrar, email = pegaEmail(f);
+    if (!email) return;
+    if (!f.senha.value) { aviso(msgDe(f), "Digite sua senha."); f.senha.focus(); return; }
+    ocupado(f, true, "Entrando…");
+    sb.auth.signInWithPassword({ email: email, password: f.senha.value }).then(function (r) {
+      ocupado(f, false);
+      if (r.error) { aviso(msgDe(f), esc(erroTexto(r.error, "Não foi possível entrar. Tente de novo."))); return; }
+      lembrar(email); f.senha.value = "";
+    });
+  });
+
+  forms.criar.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var f = forms.criar, email = pegaEmail(f);
+    if (!email) return;
+    var senha = pegaSenhas(f);
+    if (!senha) return;
+    ocupado(f, true, "Criando…");
+    sb.auth.signUp({ email: email, password: senha, options: { emailRedirectTo: AQUI } }).then(function (r) {
+      ocupado(f, false);
+      if (r.error) { aviso(msgDe(f), esc(erroTexto(r.error, "Não foi possível criar o acesso. Tente de novo."))); return; }
+      lembrar(email); f.senha.value = f.senha2.value = "";
+      if (r.data && r.data.session) return; // confirmação de e-mail desligada: já entrou
+      // Supabase não diz se o e-mail já tinha conta (identities vazio): orienta para os dois casos
+      var jaExiste = r.data && r.data.user && r.data.user.identities && !r.data.user.identities.length;
+      aviso(msgDe(f), jaExiste
+        ? "Esse e-mail já tem acesso. Entre com sua senha ou use <a href=\"#\" data-ir=\"esqueci\">Esqueci minha senha</a> para criar uma nova."
+        : "Quase lá! Enviamos um e-mail para <b>" + esc(email) + "</b>. Clique no link para confirmar e entrar. Confira também o spam.");
+    });
+  });
+
+  forms.esqueci.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var f = forms.esqueci, email = pegaEmail(f);
+    if (!email) return;
+    ocupado(f, true, "Enviando…");
+    sb.auth.resetPasswordForEmail(email, { redirectTo: AQUI }).then(function (r) {
+      ocupado(f, false);
+      if (r.error) { aviso(msgDe(f), esc(erroTexto(r.error, "Não foi possível enviar o link. Tente de novo."))); return; }
+      lembrar(email);
+      aviso(msgDe(f), "Se existir um acesso com <b>" + esc(email) + "</b>, o link para criar uma senha nova chega em instantes. Confira também o spam.");
+    });
+  });
+
+  forms.link.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var f = forms.link, email = pegaEmail(f);
+    if (!email) return;
+    ocupado(f, true, "Enviando…");
+    sb.auth.signInWithOtp({ email: email, options: { emailRedirectTo: AQUI } }).then(function (r) {
+      ocupado(f, false);
+      if (r.error) { aviso(msgDe(f), esc(erroTexto(r.error, "Não foi possível enviar o link. Tente de novo."))); return; }
+      lembrar(email);
+      aviso(msgDe(f), "Pronto! Enviamos um link para <b>" + esc(email) + "</b>. Abra o e-mail e clique no link para entrar. Confira também o spam.");
+    });
+  });
+
+  forms.nova.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var f = forms.nova, senha = pegaSenhas(f);
+    if (!senha) return;
+    if (!sessao) { aviso(msgDe(f), "O link expirou. Peça um novo em \u201cEsqueci minha senha\u201d."); return; }
+    ocupado(f, true, "Salvando…");
+    sb.auth.updateUser({ password: senha }).then(function (r) {
+      ocupado(f, false);
+      if (r.error) { aviso(msgDe(f), esc(erroTexto(r.error, "Não foi possível salvar a senha. Tente de novo."))); return; }
+      f.senha.value = f.senha2.value = "";
+      recuperando = false;
+      mostrar(sessao).then(function () { toast("Senha salva. Da próxima vez, entre com e-mail e senha."); });
     });
   });
 
@@ -104,7 +218,8 @@
     painel.innerHTML =
       '<div class="container">' +
       '<header class="dash__head"><div><span class="eyebrow">Área do assinante</span><h1>Olá!</h1><p class="note">' + esc(email) + '</p></div>' +
-        '<button class="btn btn--ghost btn--sm" type="button" data-act="sair">Sair</button></header>' +
+        '<div class="dash__actions"><button class="btn btn--ghost btn--sm" type="button" data-act="senha">Alterar senha</button>' +
+        '<button class="btn btn--ghost btn--sm" type="button" data-act="sair">Sair</button></div></header>' +
       '<div class="dash__grid">' + corpo +
         '<article class="dash__card"><small>Download</small><h3>Injection ' + esc(g0.nome || "") + (sc.versao ? ' v' + esc(sc.versao) : '') + '</h3>' + (I.badge ? I.badge(g0) : '') +
           '<p class="note">Windows 10/11 · 64 bits</p>' +
@@ -137,13 +252,13 @@
 
   function mostrar(s) {
     sessao = s;
+    if (location.hash && /access_token|error/.test(location.hash)) history.replaceState(null, "", location.pathname + location.search);
+    if (s && recuperando) { login.hidden = false; painel.hidden = true; modo("nova"); window.scrollTo(0, 0); return; }
     login.hidden = !!s;
     painel.hidden = !s;
-    if (s) {
-      painel.innerHTML = '<div class="container"><p class="note">Carregando sua assinatura…</p></div>';
-      carregar();
-      if (location.hash && /access_token|error/.test(location.hash)) history.replaceState(null, "", location.pathname + location.search);
-    }
+    if (!s) { if (modoAtual === "nova") modo("entrar"); return; }
+    painel.innerHTML = '<div class="container"><p class="note">Carregando sua assinatura…</p></div>';
+    return carregar();
   }
 
   painel.addEventListener("click", function (e) {
@@ -152,6 +267,7 @@
     var act = b.getAttribute("data-act");
     var l = licencas[+b.getAttribute("data-i")];
     if (act === "sair") { sb.auth.signOut(); return; }
+    if (act === "senha") { recuperando = true; mostrar(sessao); return; }
     if (act === "ver") {
       var p = painel.querySelector('.dash__key[data-i="' + b.getAttribute("data-i") + '"]');
       var on = b.textContent === "Mostrar";
@@ -182,15 +298,20 @@
   });
 
   // Link do e-mail com erro (expirado ou já usado)
-  if (/error_description=/.test(location.hash)) {
-    aviso(msg, "Esse link de acesso expirou ou já foi usado. Peça um novo abaixo.");
+  if (hashErro) {
+    modo(/type=recovery/.test(location.hash) ? "esqueci" : "entrar");
+    aviso(msgDe(forms[modoAtual]), "Esse link expirou ou já foi usado. Peça um novo.");
     history.replaceState(null, "", location.pathname + location.search);
   }
-  try { var salvo = localStorage.getItem("inj_email"); if (salvo) form.email.value = salvo; } catch (e) { /* sem storage */ }
+  try {
+    var salvo = localStorage.getItem("inj_email");
+    if (salvo) ["entrar", "criar", "esqueci", "link"].forEach(function (k) { forms[k].email.value = salvo; });
+  } catch (e) { /* sem storage */ }
 
   var iniciado = false;
   sb.auth.onAuthStateChange(function (ev, s) {
-    if (ev === "SIGNED_OUT") { iniciado = true; mostrar(null); }
+    if (ev === "PASSWORD_RECOVERY") { recuperando = true; iniciado = true; mostrar(s); }
+    else if (ev === "SIGNED_OUT") { iniciado = true; mostrar(null); }
     else if (!iniciado || ((ev === "SIGNED_IN" || ev === "INITIAL_SESSION") && s && (!sessao || sessao.user.id !== s.user.id))) { iniciado = true; mostrar(s); }
     else if (s) sessao = s;
   });

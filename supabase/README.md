@@ -8,7 +8,7 @@ Projeto Supabase: `veneno-licencas` (organização LojaVendas), o mesmo das chav
    - se o e-mail ainda não tem chave, cria uma (`nova_chave`);
    - se já tem, soma os dias à validade e atualiza o plano.
    Depois manda a chave por e-mail. O mesmo pagamento nunca gera duas chaves (tabela `pagamentos`).
-3. Na `area.html` o cliente entra só com o e-mail (link de acesso do Supabase Auth). O painel mostra as chaves do e-mail (`minhas_licencas()`), os PCs em uso (pode liberar com `liberar_pc()`) e o botão de download.
+3. Na `area.html` o cliente entra com e-mail e senha (ou pelo link de acesso no e-mail). "Criar senha" cria a conta (Supabase envia e-mail de confirmação) e "Esqueci minha senha" manda o link que abre o formulário de nova senha; logado, ele também pode trocar a senha pelo painel. O painel mostra as chaves do e-mail (`minhas_licencas()`), os PCs em uso (pode liberar com `liberar_pc()`) e o botão de download.
 4. `download` só gera o link (válido por 5 minutos) para quem tem plano ativo. O instalador fica no bucket privado `downloads`; a função entrega o arquivo mais recente.
 5. Todo dia às 9h (Brasília) o `pg_cron` chama `lembretes`, que avisa por e-mail quem vence nos próximos 3 dias.
 

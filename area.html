@@ -28,16 +28,76 @@
     <div class="auth__card">
       <p class="auth__aviso" id="pagamento-msg" role="status" hidden></p>
       <p class="auth__prompt">Acesso do assinante</p>
-      <h1>Área do assinante</h1>
-      <p>Digite o e-mail que você usou na compra. Mandamos um link de acesso, sem senha.</p>
-      <form id="login-form" novalidate>
-        <label class="field">
-          <span>E-mail</span>
-          <input type="email" name="email" autocomplete="email" placeholder="voce@email.com" required />
-        </label>
-        <button type="submit" class="btn btn--primary btn--block">Enviar link de acesso</button>
-        <p class="auth__msg" id="login-msg" role="status" hidden></p>
-      </form>
+
+      <div class="auth__modo" data-modo="entrar">
+        <h1>Área do assinante</h1>
+        <p>Entre com o e-mail que você usou na compra.</p>
+        <form id="form-entrar" novalidate>
+          <label class="field"><span>E-mail</span>
+            <input type="email" name="email" autocomplete="email" placeholder="voce@email.com" required /></label>
+          <label class="field"><span>Senha</span>
+            <input type="password" name="senha" autocomplete="current-password" placeholder="Sua senha" required /></label>
+          <button type="submit" class="btn btn--primary btn--block">Entrar</button>
+          <p class="auth__msg" role="status" hidden></p>
+        </form>
+        <p class="auth__links"><a href="#" data-ir="esqueci">Esqueci minha senha</a><a href="#" data-ir="link">Entrar sem senha</a></p>
+        <p class="auth__alt">Primeiro acesso? <a href="#" data-ir="criar">Criar senha</a></p>
+      </div>
+
+      <div class="auth__modo" data-modo="criar" hidden>
+        <h1>Criar acesso</h1>
+        <p>Use o mesmo e-mail da compra. Vamos mandar um e-mail para confirmar que ele é seu.</p>
+        <form id="form-criar" novalidate>
+          <label class="field"><span>E-mail</span>
+            <input type="email" name="email" autocomplete="email" placeholder="voce@email.com" required /></label>
+          <label class="field"><span>Senha</span>
+            <input type="password" name="senha" autocomplete="new-password" placeholder="Mínimo 8 caracteres" minlength="8" required /></label>
+          <label class="field"><span>Repita a senha</span>
+            <input type="password" name="senha2" autocomplete="new-password" required /></label>
+          <button type="submit" class="btn btn--primary btn--block">Criar acesso</button>
+          <p class="auth__msg" role="status" hidden></p>
+        </form>
+        <p class="auth__alt">Já tem senha? <a href="#" data-ir="entrar">Entrar</a></p>
+      </div>
+
+      <div class="auth__modo" data-modo="esqueci" hidden>
+        <h1>Redefinir senha</h1>
+        <p>Digite seu e-mail. Mandamos um link para você criar uma senha nova.</p>
+        <form id="form-esqueci" novalidate>
+          <label class="field"><span>E-mail</span>
+            <input type="email" name="email" autocomplete="email" placeholder="voce@email.com" required /></label>
+          <button type="submit" class="btn btn--primary btn--block">Enviar link</button>
+          <p class="auth__msg" role="status" hidden></p>
+        </form>
+        <p class="auth__alt"><a href="#" data-ir="entrar">← Voltar para o login</a></p>
+      </div>
+
+      <div class="auth__modo" data-modo="link" hidden>
+        <h1>Entrar sem senha</h1>
+        <p>Mandamos um link de acesso para o seu e-mail. É só clicar para entrar.</p>
+        <form id="form-link" novalidate>
+          <label class="field"><span>E-mail</span>
+            <input type="email" name="email" autocomplete="email" placeholder="voce@email.com" required /></label>
+          <button type="submit" class="btn btn--primary btn--block">Enviar link de acesso</button>
+          <p class="auth__msg" role="status" hidden></p>
+        </form>
+        <p class="auth__alt"><a href="#" data-ir="entrar">← Entrar com senha</a></p>
+      </div>
+
+      <div class="auth__modo" data-modo="nova" hidden>
+        <h1>Nova senha</h1>
+        <p>Escolha a senha que você vai usar para entrar daqui em diante.</p>
+        <form id="form-nova" novalidate>
+          <label class="field"><span>Nova senha</span>
+            <input type="password" name="senha" autocomplete="new-password" placeholder="Mínimo 8 caracteres" minlength="8" required /></label>
+          <label class="field"><span>Repita a senha</span>
+            <input type="password" name="senha2" autocomplete="new-password" required /></label>
+          <button type="submit" class="btn btn--primary btn--block">Salvar senha</button>
+          <p class="auth__msg" role="status" hidden></p>
+        </form>
+        <p class="auth__alt"><a href="#" data-ir="painel">Agora não, ir para o painel</a></p>
+      </div>
+
       <p class="auth__alt">Ainda não é assinante? <a href="index.html#jogos">Ver jogos e planos</a></p>
     </div>
   </main>
