@@ -12,7 +12,7 @@ Site estático (HTML, CSS e JS puro), pronto para GitHub Pages.
 - **Adicionar um jogo:** crie o bloco em `assets/games.js` e copie `jogos/optpokemon.html` para `jogos/<slug>.html`, trocando `data-game="<slug>"` e o título.
 - **Links de pagamento, Discord e e-mail:** `assets/config.js`. Sem link de checkout, o botão "Assinar" leva ao Discord.
 - **Cor de cada jogo:** campo `cor` do jogo em `assets/games.js`.
-- **Ilustrações do topo:** SVGs próprios em `assets/arte/`, ligados pelo campo `slides`.
+- **Imagens do topo:** `assets/pokemon/` (OptPokemon) e `assets/arte/` (CS:GO), ligadas pelo campo `slides`.
 - **Status, changelog e demonstração:** campos `script`, `changelog` e `demo` do jogo. Com `demo.video` vazio, a página mostra a simulação do painel.
 - **Tabela comparativa:** campo `comparativo` (uma linha por recurso, uma coluna por plano).
 - **Cores e visual:** variáveis no topo de `assets/styles.css`.
