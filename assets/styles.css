@@ -755,3 +755,8 @@ body, .game, .dash__card {
 .dash__pcs span { display: grid; }
 .dash__pcs small { color: var(--muted); font-size: .78rem; }
 .dash__pcs .btn { margin: 0; }
+
+/* Login com senha */
+.auth__links { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 14px; font-size: .9rem; }
+.auth__links a, .auth__msg a { color: var(--neon); font-weight: 600; }
+.dash__head .dash__actions { margin: 0; }
