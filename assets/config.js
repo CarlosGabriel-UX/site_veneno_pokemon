@@ -1,11 +1,9 @@
-// Edite aqui os links reais de pagamento e contato.
-// Cole o link de checkout de cada plano de cada jogo (Mercado Pago, Stripe, Kiwify, Hotmart etc.).
+// Edite aqui os links de contato e o servidor de assinaturas.
 window.INJECTION_CONFIG = {
-  checkout: {
-    optpokemon: { semanal: "", pro: "", max: "" },
-    csgo: {}
-  },
-  // Usado quando um plano ainda não tem link de checkout.
+  // Supabase (projeto veneno-licencas). A chave publicável pode ficar no site.
+  supabaseUrl: "https://shuyydpwkgoxheilwggf.supabase.co",
+  supabaseKey: "sb_publishable_BZ42JPGbcoXkC1WLOMu7Bg_6W8tHrV8",
+  // Usado quando o pagamento online ainda não está ativado.
   fallbackContato: "https://discord.gg/SEU-CONVITE",
   discord: "https://discord.gg/SEU-CONVITE",
   email: "contato@injection.com"

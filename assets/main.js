@@ -1,5 +1,5 @@
 (function () {
-  var cfg = window.INJECTION_CONFIG || { checkout: {} };
+  var cfg = window.INJECTION_CONFIG || {};
   var games = window.INJECTION_GAMES || [];
   var gameSlug = document.body.getAttribute("data-game");
 
@@ -360,10 +360,73 @@
     });
   }
 
-  // Links de checkout e Discord
+  // Escolher plano: pede o e-mail e abre o checkout do Mercado Pago
+  var nomesPlano = {};
+  var gAtual = find(gameSlug);
+  ((gAtual && gAtual.planos) || []).forEach(function (p) { nomesPlano[p.id] = p.nome; });
+  function brl(v) { return "R$ " + Number(v).toFixed(2).replace(".", ","); }
+  function abrirCheckout(plan) {
+    var periodo = plan === "semanal" ? "semanal" : (bt && bt.checked ? "trimestral" : "mensal");
+    var dlg = document.getElementById("checkout-dlg");
+    if (!dlg) {
+      dlg = document.createElement("dialog");
+      dlg.id = "checkout-dlg";
+      dlg.className = "checkout";
+      document.body.appendChild(dlg);
+      dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
+    }
+    var salvo = "";
+    try { salvo = localStorage.getItem("inj_email") || ""; } catch (e) { /* sem storage */ }
+    dlg.innerHTML =
+      '<form method="dialog" class="checkout__box" novalidate>' +
+        '<button class="checkout__x" value="cancel" aria-label="Fechar">×</button>' +
+        '<small>Assinar</small><h2>Injection ' + esc(gAtual ? gAtual.nome : "") + ' · ' + esc(nomesPlano[plan] || plan) + '</h2>' +
+        '<p class="checkout__price" data-preco>Carregando preço…</p>' +
+        '<label class="field"><span>Seu e-mail</span><input type="email" name="email" autocomplete="email" required placeholder="voce@email.com" value="' + esc(salvo) + '" /></label>' +
+        '<p class="note">A chave chega neste e-mail, e é com ele que você entra na Área do assinante. Se já tem chave, a validade é somada.</p>' +
+        '<button class="btn btn--primary btn--block" type="submit" value="ok">Ir para o pagamento</button>' +
+        '<p class="checkout__msg" role="status" hidden></p>' +
+        '<p class="checkout__pay">Pix ou cartão · pagamento seguro pelo Mercado Pago</p>' +
+      '</form>';
+    dlg.showModal();
+    var f = dlg.querySelector("form"), msg = dlg.querySelector(".checkout__msg"), btn = f.querySelector('[type="submit"]');
+    function aviso(t) { msg.innerHTML = t; msg.hidden = false; }
+    fetch(cfg.supabaseUrl + "/rest/v1/precos?select=valor,dias&plan=eq." + encodeURIComponent(plan) + "&periodo=eq." + periodo, { headers: { apikey: cfg.supabaseKey } })
+      .then(function (r) { return r.json(); })
+      .then(function (rows) {
+        var el = dlg.querySelector("[data-preco]");
+        if (rows && rows[0]) el.innerHTML = '<strong>' + brl(rows[0].valor) + '</strong> por ' + rows[0].dias + ' dias';
+        else el.textContent = "";
+      }).catch(function () { dlg.querySelector("[data-preco]").textContent = ""; });
+    f.addEventListener("submit", function (e) {
+      if (e.submitter && e.submitter.value === "cancel") return;
+      e.preventDefault();
+      var email = f.email.value.trim();
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { aviso("Confira o e-mail."); f.email.focus(); return; }
+      try { localStorage.setItem("inj_email", email); } catch (e2) { /* sem storage */ }
+      btn.disabled = true; btn.textContent = "Abrindo o pagamento…";
+      fetch(cfg.supabaseUrl + "/functions/v1/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", apikey: cfg.supabaseKey },
+        body: JSON.stringify({ plan: plan, periodo: periodo, email: email })
+      }).then(function (r) { return r.json(); }).then(function (res) {
+        if (res.ok && res.url) { window.location.href = res.url; return; }
+        btn.disabled = false; btn.textContent = "Ir para o pagamento";
+        if (res.code === "nao_configurado") {
+          aviso('O pagamento online ainda está sendo ativado. Fale com a gente no <a href="' + esc(cfg.fallbackContato || cfg.discord || "#") + '" target="_blank" rel="noopener">Discord</a> para assinar agora.');
+        } else aviso(esc(res.message || "Não foi possível abrir o pagamento. Tente de novo."));
+      }).catch(function () {
+        btn.disabled = false; btn.textContent = "Ir para o pagamento";
+        aviso("Sem conexão com o servidor. Tente de novo.");
+      });
+    });
+  }
   document.querySelectorAll("[data-checkout]").forEach(function (a) {
-    var url = ((cfg.checkout || {})[gameSlug] || {})[a.getAttribute("data-checkout")] || cfg.fallbackContato;
-    if (url) { a.href = url; a.target = "_blank"; a.rel = "noopener"; }
+    if (cfg.supabaseUrl && window.HTMLDialogElement) {
+      a.addEventListener("click", function (e) { e.preventDefault(); abrirCheckout(a.getAttribute("data-checkout")); });
+    } else if (cfg.fallbackContato) {
+      a.href = cfg.fallbackContato; a.target = "_blank"; a.rel = "noopener";
+    }
   });
   document.querySelectorAll('[data-link="discord"]').forEach(function (a) {
     if (cfg.discord) { a.href = cfg.discord; a.target = "_blank"; a.rel = "noopener"; }
@@ -373,87 +436,6 @@
     if (cfg.email) { a.href = "mailto:" + cfg.email; a.textContent = cfg.email; }
   });
 
-  // Área do assinante (placeholder, sem back-end)
-  var form = document.getElementById("login-form");
-  if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var msg = document.getElementById("login-msg");
-      msg.innerHTML = 'O login ainda está em construção. Fale com o suporte no Discord para receber seu acesso. <a href="#painel">Ver prévia do painel</a>';
-      msg.hidden = false;
-    });
-  }
-
-  // Painel do assinante (prévia com dados de exemplo)
-  var painel = document.getElementById("painel");
-  if (painel) {
-    var authMain = document.querySelector("main.auth");
-    var g0 = games.filter(function (g) { return g.status === "disponivel"; })[0] || games[0];
-    var plano = (g0.planos || []).filter(function (p) { return p.destaque; })[0] || (g0.planos || [])[0] || { nome: "-" };
-    var renova = new Date(Date.now() + 23 * 864e5).toISOString().slice(0, 10);
-    var chave = "INJ-7F3K-Q9ZX-2M4P";
-    var sc = g0.script || {};
-    var outros = games.filter(function (g) { return g !== g0; });
-    var montar = function () {
-      painel.innerHTML =
-        '<div class="container">' +
-        '<div class="dash__demo" role="note">Prévia com dados de exemplo. O login real entra quando o sistema de assinaturas estiver pronto.</div>' +
-        '<header class="dash__head"><div><span class="eyebrow">Área do assinante</span><h1>Olá, assinante</h1></div>' +
-          '<a class="btn btn--ghost btn--sm" href="#">Sair</a></header>' +
-        '<div class="dash__grid">' +
-          '<article class="dash__card dash__card--sub" style="--neon:' + esc(g0.cor || "#ff2d3f") + '">' +
-            (g0.slides ? '<img class="dash__art" src="assets/' + esc(g0.slides[0].img) + '" alt="" aria-hidden="true" />' : '') +
-            '<small>Assinatura</small><h2>Injection ' + esc(g0.nome) + '</h2>' +
-            '<p class="dash__plan">Plano ' + esc(plano.nome) + ' <span class="status status--online"><i aria-hidden="true"></i>Ativa</span></p>' +
-            '<dl><div><dt>Renova em</dt><dd>' + esc(fmtData(renova)) + '</dd></div><div><dt>Contas liberadas</dt><dd>0 de ' + esc(((g0.comparativo || [])[0] || [])[2] || "2") + '</dd></div></dl>' +
-            '<div class="dash__bar"><span style="width:' + Math.round((30 - 23) / 30 * 100) + '%"></span></div><p class="note">7 de 30 dias usados</p>' +
-            '<a class="btn btn--ghost btn--sm" href="jogos/' + esc(g0.slug) + '.html#planos">Mudar de plano</a></article>' +
-          '<article class="dash__card"><small>Chave de ativação</small>' +
-            '<p class="dash__key" data-key="' + chave + '">INJ-••••-••••-' + chave.slice(-4) + '</p>' +
-            '<div class="dash__actions"><button class="btn btn--ghost btn--sm" type="button" data-act="ver">Mostrar</button><button class="btn btn--pill btn--sm" type="button" data-act="copiar">Copiar</button></div>' +
-            '<p class="note">Use esta chave na primeira vez que abrir o script. Não compartilhe.</p></article>' +
-          '<article class="dash__card"><small>Download</small><h3>Injection ' + esc(g0.nome) + ' v' + esc(sc.versao || "") + '</h3>' + badge(g0) +
-            '<p class="note">Windows 10/11 · 64 bits</p><button class="btn btn--primary btn--block" type="button" data-act="baixar">Baixar</button></article>' +
-          '<article class="dash__card dash__card--wide"><small>Novidades</small><ol class="news__log news__log--mini">' +
-            (g0.changelog || []).slice(0, 2).map(function (c, i) {
-              return '<li' + (i === 0 ? ' class="is-new"' : '') + '><div class="news__head"><strong>v' + esc(c[0]) + '</strong><span>' + esc(fmtData(c[1])) + '</span></div><ul>' +
-                c[2].map(function (t) { return '<li>' + esc(t) + '</li>'; }).join("") + '</ul></li>';
-            }).join("") + '</ol></article>' +
-          '<article class="dash__card"><small>Suporte</small><h3>Precisa de ajuda?</h3><p>Fale com a equipe no Discord. Assinantes Pro e Max têm atendimento prioritário.</p>' +
-            '<a class="btn btn--ghost btn--sm" href="#" data-link="discord">Abrir Discord</a></article>' +
-          outros.map(function (g) {
-            return '<article class="dash__card dash__card--soon" style="--neon:' + esc(g.cor || "#ff2d3f") + '"><small>Outros jogos</small><h3>Injection ' + esc(g.nome) + '</h3>' + badge(g, true) +
-              '<a class="btn btn--ghost btn--sm" href="jogos/' + esc(g.slug) + '.html">Ver página</a></article>';
-          }).join("") +
-        '</div><p class="dash__toast" role="status" hidden></p></div>';
-      var toast = painel.querySelector(".dash__toast");
-      function aviso(t) { toast.textContent = t; toast.hidden = false; clearTimeout(aviso.t); aviso.t = setTimeout(function () { toast.hidden = true; }, 3200); }
-      painel.addEventListener("click", function (e) {
-        var b = e.target.closest("[data-act]");
-        if (!b) return;
-        var key = painel.querySelector(".dash__key");
-        if (b.getAttribute("data-act") === "ver") {
-          var on = b.textContent === "Mostrar";
-          key.textContent = on ? key.getAttribute("data-key") : "INJ-••••-••••-" + chave.slice(-4);
-          b.textContent = on ? "Ocultar" : "Mostrar";
-        } else if (b.getAttribute("data-act") === "copiar") {
-          aviso("Na versão real, a chave é copiada aqui. Esta é só uma prévia.");
-        } else if (b.getAttribute("data-act") === "baixar") {
-          aviso("O download fica disponível depois do login real.");
-        }
-      });
-      painel.querySelectorAll('[data-link="discord"]').forEach(function (a) {
-        if (cfg.discord) { a.href = cfg.discord; a.target = "_blank"; a.rel = "noopener"; }
-      });
-    };
-    var rota = function () {
-      var on = location.hash === "#painel";
-      if (on && !painel.innerHTML) montar();
-      painel.hidden = !on;
-      if (authMain) authMain.hidden = on;
-      if (on) setTimeout(function () { window.scrollTo(0, 0); }, 0);
-    };
-    window.addEventListener("hashchange", rota);
-    rota();
-  }
+  // Funções usadas pela Área do assinante (assets/area.js)
+  window.INJ = { esc: esc, fmtData: fmtData, haQuanto: haQuanto, badge: badge, find: find, games: games, cfg: cfg };
 })();
