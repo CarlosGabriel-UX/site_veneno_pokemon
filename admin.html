@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin | Injection</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0b0b0c" />
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="index.html" class="brand" aria-label="Injection, início">
+        <img src="assets/logo.svg" alt="" width="36" height="36" />
+        <span>injection<strong>_</strong></span>
+      </a>
+      <a href="area.html" class="btn btn--ghost btn--sm">Área do assinante</a>
+    </div>
+  </header>
+
+  <main class="auth" id="login">
+    <div class="hero__glow" aria-hidden="true"></div>
+    <div class="auth__card">
+      <p class="auth__prompt">Acesso restrito</p>
+      <h1>Painel de admin</h1>
+      <p>Entre com a sua conta de administrador.</p>
+      <form id="form-admin" novalidate>
+        <label class="field"><span>E-mail</span>
+          <input type="email" name="email" autocomplete="email" placeholder="voce@email.com" required /></label>
+        <label class="field"><span>Senha</span>
+          <input type="password" name="senha" autocomplete="current-password" required /></label>
+        <button type="submit" class="btn btn--primary btn--block">Entrar</button>
+        <p class="auth__msg" role="status" hidden></p>
+      </form>
+      <p class="auth__alt"><a href="area.html">Esqueci a senha</a></p>
+    </div>
+  </main>
+
+  <main class="dash adm" id="painel" hidden>
+    <div class="container">
+      <header class="dash__head">
+        <div><span class="eyebrow">Admin</span><h1>Painel</h1><p class="note adm__quem"></p></div>
+        <div class="dash__actions">
+          <button class="btn btn--ghost btn--sm" type="button" data-act="atualizar">Atualizar</button>
+          <button class="btn btn--ghost btn--sm" type="button" data-act="sair">Sair</button>
+        </div>
+      </header>
+
+      <section class="adm__stats" id="resumo" aria-label="Resumo"></section>
+
+      <article class="dash__card adm__lista">
+        <div class="adm__listahead">
+          <div><small>Chaves</small><h3 id="lista-titulo">Todas as chaves</h3></div>
+          <input type="search" id="busca" placeholder="Buscar chave, e-mail ou observação" aria-label="Buscar chaves" />
+        </div>
+        <div class="adm__filtros" role="group" aria-label="Filtrar">
+          <button type="button" class="is-on" data-filtro="todas">Todas</button>
+          <button type="button" data-filtro="ativas">Ativas</button>
+          <button type="button" data-filtro="vencendo">Vencendo</button>
+          <button type="button" data-filtro="vencidas">Vencidas</button>
+          <button type="button" data-filtro="bloqueadas">Bloqueadas</button>
+        </div>
+        <div class="adm__tabela" id="chaves"></div>
+      </article>
+      <div class="adm__cols">
+        <article class="dash__card adm__nova">
+          <small>Nova chave</small>
+          <h3>Gerar chave</h3>
+          <form id="form-nova" novalidate>
+            <label class="field"><span>Plano</span>
+              <select name="plan">
+                <option value="semanal">Semanal (7 dias, 1 PC)</option>
+                <option value="pro" selected>Pro (30 dias, 2 PCs)</option>
+                <option value="max">Max (30 dias, 5 PCs)</option>
+                <option value="vitalicio">Vitalício (sem vencimento, 2 PCs)</option>
+              </select></label>
+            <label class="field"><span>E-mail do cliente <em>(opcional)</em></span>
+              <input type="email" name="email" placeholder="cliente@email.com" /></label>
+            <div class="adm__duo">
+              <label class="field"><span>Dias <em>(opcional)</em></span><input type="number" name="dias" min="1" max="3650" placeholder="padrão" /></label>
+              <label class="field"><span>PCs <em>(opcional)</em></span><input type="number" name="pcs" min="1" max="50" placeholder="padrão" /></label>
+            </div>
+            <label class="field"><span>Observação <em>(opcional)</em></span>
+              <input type="text" name="note" maxlength="120" placeholder="ex.: cortesia, parceiro, pago no Pix" /></label>
+            <button type="submit" class="btn btn--primary btn--block">Gerar chave</button>
+          </form>
+          <div class="adm__gerada" hidden></div>
+        </article>
+
+        <article class="dash__card adm__vendas">
+          <small>Vendas</small><h3>Últimos pagamentos aprovados</h3>
+          <div class="adm__tabela" id="vendas"></div>
+        </article>
+      </div>
+    </div>
+    <p class="dash__toast" role="status" hidden></p>
+  </main>
+
+  <dialog class="checkout" id="dlg-chave">
+    <form method="dialog" class="checkout__box" id="form-editar">
+      <button class="checkout__x" value="fechar" aria-label="Fechar" formnovalidate>×</button>
+      <small>Editar chave</small>
+      <h2 class="adm__dlgkey"></h2>
+      <div class="adm__duo">
+        <label class="field"><span>Plano</span>
+          <select name="plan"><option value="semanal">Semanal</option><option value="pro">Pro</option><option value="max">Max</option><option value="vitalicio">Vitalício</option></select></label>
+        <label class="field"><span>PCs permitidos</span><input type="number" name="pcs" min="1" max="50" required /></label>
+      </div>
+      <label class="field"><span>E-mail do cliente</span><input type="email" name="email" placeholder="sem e-mail" /></label>
+      <label class="field"><span>Observação</span><input type="text" name="note" maxlength="120" /></label>
+      <div class="adm__renovar">
+        <span>Adicionar dias</span>
+        <div><button type="button" data-dias="7">+7</button><button type="button" data-dias="30">+30</button><button type="button" data-dias="90">+90</button>
+        <input type="number" name="dias" min="1" max="3650" placeholder="outro" aria-label="Outro número de dias" /></div>
+      </div>
+      <div class="adm__pcsdlg"></div>
+      <p class="checkout__msg" hidden></p>
+      <div class="adm__dlgacoes">
+        <button type="button" class="btn btn--ghost btn--sm" data-acao="bloquear">Bloquear</button>
+        <button type="submit" class="btn btn--primary btn--sm" value="salvar">Salvar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="assets/config.js"></script>
+  <script src="assets/games.js"></script>
+  <script src="assets/main.js"></script>
+  <script src="assets/vendor/supabase.js"></script>
+  <script src="assets/admin.js"></script>
+</body>
+</html>

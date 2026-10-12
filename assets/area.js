@@ -247,6 +247,11 @@
       if (r.error) { painel.innerHTML = '<div class="container"><p class="auth__msg">Não foi possível carregar sua assinatura. Atualize a página.</p></div>'; return; }
       licencas = r.data || [];
       montar();
+      // Admins ganham um atalho para o painel de admin
+      sb.rpc("is_admin").then(function (a) {
+        var box = painel.querySelector(".dash__head .dash__actions");
+        if (a.data === true && box && !box.querySelector(".js-admin")) box.insertAdjacentHTML("afterbegin", '<a class="btn btn--primary btn--sm js-admin" href="admin.html">Painel de admin</a>');
+      });
     });
   }
 

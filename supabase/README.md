@@ -31,3 +31,7 @@ Lembre de atualizar também os preços exibidos em `assets/games.js`.
 
 ## Funções
 O código está em `functions/` e foi publicado no projeto. `checkout`, `mercadopago-webhook` e `lembretes` não exigem login (o webhook confere o pagamento na API do Mercado Pago; os lembretes exigem o token do Vault). `download` exige o login do assinante.
+
+## Painel de admin (`admin.html`)
+
+Quem está na tabela `admins` (por e-mail) entra em `admin.html` com a mesma conta da Área do assinante e pode ver o resumo, gerar chaves, editar e-mail/plano/PCs/observação, renovar, bloquear, liberar PCs e ver as vendas. Tudo passa pelas funções `admin_*`, que conferem `is_admin()` antes de qualquer coisa. Para adicionar um admin: `insert into public.admins (email) values ('email@exemplo.com');`
