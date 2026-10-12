@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <defs>
+    <radialGradient id="body" cx="45%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#b98cff"/>
+      <stop offset=".45" stop-color="#7b3fe4"/>
+      <stop offset="1" stop-color="#2a0f5e"/>
+    </radialGradient>
+    <radialGradient id="eye" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".4" stop-color="#ff5a6e"/>
+      <stop offset="1" stop-color="#b3122a"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g opacity=".55" fill="#a77bff">
+    <circle cx="96" cy="190" r="10"/><circle cx="520" cy="150" r="7"/><circle cx="500" cy="430" r="12"/>
+    <circle cx="120" cy="420" r="6"/><circle cx="470" cy="260" r="4"/><circle cx="150" cy="300" r="4"/>
+  </g>
+  <!-- espinhos -->
+  <path d="M190 170 L160 80 L238 140 Z M262 128 L268 40 L320 120 Z M350 126 L420 54 L398 150 Z M418 176 L500 120 L456 214 Z" fill="#5a26b8"/>
+  <!-- corpo -->
+  <path d="M300 110 C420 110 480 200 480 300 C480 360 470 400 470 440 C440 420 420 470 390 450 C365 490 340 450 318 482 C296 450 270 494 246 456 C214 486 196 430 166 452 C150 410 120 380 120 300 C120 200 180 110 300 110 Z" fill="url(#body)"/>
+  <!-- bracinhos -->
+  <path d="M138 300 C90 290 60 250 70 220 C100 250 130 255 150 262 Z" fill="#5a26b8"/>
+  <path d="M462 300 C510 296 545 260 538 228 C506 254 476 258 452 264 Z" fill="#5a26b8"/>
+  <!-- brilho -->
+  <ellipse cx="240" cy="190" rx="70" ry="34" fill="#fff" opacity=".18" transform="rotate(-20 240 190)"/>
+  <!-- olhos -->
+  <g filter="url(#glow)">
+    <path d="M196 262 Q240 226 284 270 Q246 300 196 262 Z" fill="url(#eye)"/>
+    <path d="M404 262 Q360 226 316 270 Q354 300 404 262 Z" fill="url(#eye)"/>
+  </g>
+  <circle cx="250" cy="268" r="9" fill="#2a0010"/><circle cx="350" cy="268" r="9" fill="#2a0010"/>
+  <!-- sorriso -->
+  <path d="M200 340 Q300 430 400 340 Q300 384 200 340 Z" fill="#fff"/>
+  <path d="M220 350 L236 372 L252 360 L268 382 L284 366 L300 386 L316 366 L332 382 L348 360 L364 372 L380 350" fill="none" stroke="#7b3fe4" stroke-width="4" stroke-linejoin="round"/>
+</svg>

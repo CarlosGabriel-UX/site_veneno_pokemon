@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <defs>
+    <linearGradient id="f1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3c6ff"/><stop offset="1" stop-color="#b06bd6"/></linearGradient>
+    <linearGradient id="f2" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d79bf5"/><stop offset="1" stop-color="#6a2a9a"/></linearGradient>
+    <linearGradient id="f3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8c45c0"/><stop offset="1" stop-color="#3a1260"/></linearGradient>
+    <radialGradient id="iris" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="#5ef0ff"/><stop offset="1" stop-color="#1b6b9a"/></radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="9" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <!-- órbitas -->
+  <g fill="none" stroke="#e3a8ff" stroke-width="5" opacity=".75">
+    <ellipse cx="300" cy="300" rx="250" ry="70" transform="rotate(-24 300 300)"/>
+    <ellipse cx="300" cy="300" rx="250" ry="70" transform="rotate(30 300 300)" opacity=".6"/>
+  </g>
+  <circle cx="82" cy="380" r="14" fill="#f3c6ff" filter="url(#glow)"/>
+  <circle cx="520" cy="190" r="10" fill="#f3c6ff" filter="url(#glow)"/>
+  <!-- cristal -->
+  <g filter="url(#glow)">
+    <polygon points="300,50 430,250 300,300" fill="url(#f1)"/>
+    <polygon points="300,50 170,250 300,300" fill="url(#f2)"/>
+    <polygon points="170,250 300,300 300,550" fill="url(#f3)"/>
+    <polygon points="430,250 300,300 300,550" fill="url(#f2)"/>
+  </g>
+  <polygon points="300,50 340,150 300,300 260,150" fill="#fff" opacity=".18"/>
+  <!-- olho -->
+  <path d="M220 290 Q300 220 380 290 Q300 360 220 290 Z" fill="#fff"/>
+  <circle cx="300" cy="290" r="38" fill="url(#iris)"/>
+  <circle cx="300" cy="290" r="14" fill="#0c1020"/>
+  <circle cx="312" cy="278" r="7" fill="#fff"/>
+</svg>

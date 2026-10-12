@@ -11,12 +11,31 @@ window.INJECTION_GAMES = [
     resumo: "Caçada automática, auto-cura, coleta de loot e rotinas prontas.",
     titulo: "Automatize sua rotina no OptPokemon.",
     descricao: "O Injection OptPokemon cuida da caçada, da cura, do loot e das rotinas repetitivas. Configure em minutos e acompanhe tudo pela sua área de assinante.",
-    // Slides do topo (imagens em assets/pokemon/)
+    // Cor de destaque da página e do card na vitrine
+    cor: "#ff2d3f",
+    // Slides do topo (ilustrações próprias em assets/arte/)
     slides: [
-      { img: "gengar", palavra: "GENGAR", cor: "#7b3fe4", texto: "Pronto para deixar o script caçar por você enquanto descansa e voltar com a mochila cheia?" },
-      { img: "mewtwo", palavra: "MEWTWO", cor: "#b06bd6", texto: "Automação estável, perfis prontos e atualização a cada mudança do jogo." },
-      { img: "charizard", palavra: "CHARIZARD", cor: "#ff6a2b", texto: "Upe mais rápido com caçada automática, auto-cura e coleta de loot." },
-      { img: "lucario", palavra: "LUCARIO", cor: "#3f7fe4", texto: "Configure em minutos e acompanhe tudo pela sua área de assinante." }
+      { img: "arte/sombra.svg", palavra: "SOMBRA", cor: "#7b3fe4", texto: "Pronto para deixar o script caçar por você enquanto descansa e voltar com a mochila cheia?" },
+      { img: "arte/psiquico.svg", palavra: "PSÍQUICO", cor: "#b06bd6", texto: "Automação estável, perfis prontos e atualização a cada mudança do jogo." },
+      { img: "arte/chamas.svg", palavra: "CHAMAS", cor: "#ff6a2b", texto: "Upe mais rápido com caçada automática, auto-cura e coleta de loot." },
+      { img: "arte/aura.svg", palavra: "AURA", cor: "#3f7fe4", texto: "Configure em minutos e acompanhe tudo pela sua área de assinante." }
+    ],
+    // Status do script (aparece no topo, na vitrine e na área do assinante).
+    // estado: "online" | "manutencao" | "offline". Atualize a data a cada versão nova.
+    script: { estado: "online", versao: "1.4.2", atualizado: "2026-10-10" },
+    // Demonstração: cole o link de um vídeo .mp4 (ou deixe vazio para mostrar a simulação do painel)
+    demo: {
+      video: "", poster: "",
+      // Linhas que aparecem no log da simulação
+      log: ["Rota Cinnabar carregada", "Alvo encontrado: Lv 42", "Ataque 1 usado", "Alvo derrotado (+1.240 XP)", "Loot coletado: Rare Candy",
+            "HP em 38%: usando Super Potion", "Voltando para a rota", "Alvo encontrado: Lv 45", "Ataque 2 usado", "Alvo derrotado (+1.410 XP)",
+            "Loot ignorado: Pokéball", "Mochila em 72%", "Trocando de Pokémon", "Alvo derrotado (+1.300 XP)", "Loot coletado: Nugget"]
+    },
+    // Changelog: as versões mais recentes primeiro (exemplo, troque pelas reais)
+    changelog: [
+      ["1.4.2", "2026-10-10", ["Rotas novas para a caçada em Cinnabar", "Correção na troca de Pokémon com HP baixo"]],
+      ["1.4.0", "2026-09-28", ["Alertas de mochila cheia no Discord", "Filtro de loot por valor"]],
+      ["1.3.5", "2026-09-12", ["Compatível com a atualização do cliente de setembro"]]
     ],
     stats: [["24/7", "rodando"], ["+30", "rotinas prontas"], ["Suporte", "no Discord"]],
     recursos: [
@@ -35,6 +54,18 @@ window.INJECTION_GAMES = [
       { id: "max", nome: "Max", desc: "Para quem roda várias contas ao mesmo tempo.", mensal: "59,90", trimestral: "50,90", per: "/mês",
         itens: ["5 contas do jogo", "Tudo do plano Pro", "Acesso antecipado a novidades", "Ajuda na configuração"] }
     ],
+    // Tabela comparativa: [recurso, Semanal, Pro, Max]. true = incluso, false = não incluso, texto = valor
+    comparativo: [
+      ["Contas do jogo", "1", "2", "5"],
+      ["Caçada automática", true, true, true],
+      ["Auto-cura e loot", true, true, true],
+      ["Rotinas prontas", true, true, true],
+      ["Perfis exclusivos", false, true, true],
+      ["Alertas no Discord", false, true, true],
+      ["Acesso antecipado", false, false, true],
+      ["Ajuda na configuração", false, false, true],
+      ["Suporte", "Discord", "Prioritário", "Prioritário"]
+    ],
     faq: [
       ["Funciona em qualquer computador?", "Roda no Windows 10 ou 11. Recomendamos deixar o jogo em janela com a resolução indicada no guia de instalação."],
       ["Posso usar em mais de uma conta?", "Sim. O número de contas depende do plano: 1 no Semanal, 2 no Pro e 5 no Max."],
@@ -47,7 +78,14 @@ window.INJECTION_GAMES = [
     nome: "CS:GO",
     tag: "CS",
     status: "em-breve",
+    cor: "#ff8a1f",
     resumo: "Em desenvolvimento. Entre no Discord para ser avisado do lançamento.",
+    slides: [
+      { img: "arte/mira.svg", palavra: "MIRA", cor: "#ff8a1f", texto: "O Injection CS:GO está em desenvolvimento. Entre no Discord para ser avisado no lançamento." },
+      { img: "arte/radar.svg", palavra: "RADAR", cor: "#3fa7e4", texto: "Quer ajudar a decidir os recursos? Vote no nosso Discord." },
+      { img: "arte/tatico.svg", palavra: "TÁTICO", cor: "#ff8a1f", texto: "Assinantes do Injection recebem acesso antecipado aos testes." }
+    ],
+    script: { estado: "dev", versao: "", atualizado: "" },
     aviso: "Não afiliado à Valve Corporation."
   }
 ];

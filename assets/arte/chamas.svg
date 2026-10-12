@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <defs>
+    <linearGradient id="outer" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#b3200f"/><stop offset=".6" stop-color="#ff6a2b"/><stop offset="1" stop-color="#ffb347"/>
+    </linearGradient>
+    <linearGradient id="mid" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#ff7a1a"/><stop offset="1" stop-color="#ffd166"/>
+    </linearGradient>
+    <radialGradient id="core" cx="50%" cy="65%" r="55%">
+      <stop offset="0" stop-color="#fffbe6"/><stop offset=".6" stop-color="#ffe08a"/><stop offset="1" stop-color="#ffb347"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g fill="#ffb347" opacity=".7">
+    <path d="M110 220 q12 -30 0 -50 q30 24 0 50z"/><path d="M500 200 q10 -26 0 -44 q26 20 0 44z"/>
+    <path d="M470 120 q8 -20 0 -34 q20 16 0 34z"/><path d="M140 120 q8 -20 0 -34 q20 16 0 34z"/>
+  </g>
+  <g filter="url(#glow)">
+    <path d="M300 40 C330 120 420 150 430 240 C470 210 470 170 462 140 C530 220 540 320 500 400 C470 470 400 520 300 520 C200 520 130 470 100 400 C60 320 70 220 138 140 C130 170 130 210 170 240 C180 150 270 120 300 40 Z" fill="url(#outer)"/>
+  </g>
+  <path d="M300 130 C320 190 390 220 392 300 C420 280 420 250 414 230 C460 300 450 380 410 430 C380 470 340 490 300 490 C260 490 220 470 190 430 C150 380 140 300 186 230 C180 250 180 280 208 300 C210 220 280 190 300 130 Z" fill="url(#mid)"/>
+  <ellipse cx="300" cy="380" rx="120" ry="100" fill="url(#core)"/>
+  <!-- olhos -->
+  <path d="M232 340 Q260 312 288 344 Q260 360 232 340 Z" fill="#3a0d00"/>
+  <path d="M368 340 Q340 312 312 344 Q340 360 368 340 Z" fill="#3a0d00"/>
+  <circle cx="266" cy="338" r="5" fill="#fff"/><circle cx="346" cy="338" r="5" fill="#fff"/>
+  <path d="M270 400 Q300 424 330 400" fill="none" stroke="#3a0d00" stroke-width="7" stroke-linecap="round"/>
+  <ellipse cx="226" cy="388" rx="16" ry="9" fill="#ff7a5a" opacity=".55"/>
+  <ellipse cx="374" cy="388" rx="16" ry="9" fill="#ff7a5a" opacity=".55"/>
+</svg>
