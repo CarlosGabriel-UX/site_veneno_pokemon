@@ -225,14 +225,21 @@
           '<p class="note">Windows 10/11 · 64 bits</p>' +
           '<button class="btn btn--primary btn--block" type="button" data-act="baixar"' + (ativa ? '' : ' disabled') + '>Baixar</button>' +
           (ativa ? '' : '<p class="note">O download libera com um plano ativo.</p>') + '</article>' +
-        '<article class="dash__card dash__card--wide"><small>Novidades</small><ol class="news__log news__log--mini">' +
-          (g0.changelog || []).slice(0, 2).map(function (c, i) {
-            return '<li' + (i === 0 ? ' class="is-new"' : '') + '><div class="news__head"><strong>v' + esc(c[0]) + '</strong><span>' + esc(I.fmtData(c[1])) + '</span></div><ul>' +
-              c[2].map(function (t) { return '<li>' + esc(t) + '</li>'; }).join("") + '</ul></li>';
-          }).join("") + '</ol></article>' +
-        '<article class="dash__card"><small>Suporte</small><h3>Precisa de ajuda?</h3><p>Fale com a equipe no Discord. Assinantes Pro e Max têm atendimento prioritário.</p>' +
-          '<a class="btn btn--ghost btn--sm" href="' + esc(cfg.discord || "#") + '" target="_blank" rel="noopener">Abrir Discord</a></article>' +
+        '<article class="dash__card dash__card--guia"><small>Como funciona</small><h3>Guia do painel</h3>' + guia(GUIA_ASSINANTE) + '</article>' +
       '</div><p class="dash__toast" role="status" hidden></p></div>';
+  }
+
+  // Guia do painel: o que cada parte faz
+  var GUIA_ASSINANTE = [
+    ["Assinatura", "Mostra seu plano, se ele está ativo e até quando vale. A barra conta os dias que faltam. \u201cRenovar\u201d leva para os planos; ao pagar de novo com o mesmo e-mail, os dias são somados à mesma chave."],
+    ["Chave de ativação", "\u201cMostrar\u201d revela a chave completa e \u201cCopiar\u201d copia para colar no script na primeira vez que abrir. A chave é pessoal: cada plano aceita um número limitado de PCs."],
+    ["PCs em uso", "Lista os computadores que já ativaram sua chave. Trocou de PC ou chegou no limite? Clique em \u201cLiberar\u201d no PC antigo e ative no novo."],
+    ["Download", "Baixa a versão mais recente do script. O botão só funciona com um plano ativo e o link vale por poucos minutos."],
+    ["Alterar senha", "Troca a senha que você usa para entrar. Esqueceu a senha? Na tela de login use \u201cEsqueci minha senha\u201d."],
+    ["Sair", "Encerra o acesso neste navegador. Use sempre em computadores que não são seus."]
+  ];
+  function guia(itens) {
+    return '<dl class="dash__guia">' + itens.map(function (i) { return '<div><dt>' + esc(i[0]) + '</dt><dd>' + esc(i[1]) + '</dd></div>'; }).join("") + '</dl>';
   }
 
   function toast(t) {

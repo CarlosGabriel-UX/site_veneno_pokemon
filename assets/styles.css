@@ -818,3 +818,13 @@ body, .game, .dash__card {
   .adm__tabela td:last-child { grid-column: 1 / -1; text-align: left; }
   .adm__tabela td:last-child:empty { display: none; }
 }
+
+/* Guia dos painéis */
+.dash__card--guia { grid-column: 1 / -1; }
+.dash__guia { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px 24px; margin: 6px 0 0; width: 100%; }
+.dash__guia div { padding-left: 12px; border-left: 2px solid color-mix(in srgb, var(--neon) 55%, transparent); }
+.dash__guia dt { font-weight: 700; color: #fff; font-size: .95rem; }
+.dash__guia dd { margin: 4px 0 0; color: #c9c9ce; font-size: .9rem; line-height: 1.5; }
+.adm__ajuda { margin: 4px 0 0 !important; color: var(--muted) !important; font-size: .86rem; line-height: 1.45; max-width: 60ch; }
+.adm__ajuda--topo { margin: -4px 0 18px !important; max-width: none; }
+.adm__guia { margin-top: 18px; }

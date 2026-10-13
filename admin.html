@@ -52,10 +52,11 @@
       </header>
 
       <section class="adm__stats" id="resumo" aria-label="Resumo"></section>
+      <p class="adm__ajuda adm__ajuda--topo">Os números de cima resumem a loja: chaves ativas, as que vencem nos próximos 7 dias, as já vencidas, quantos PCs estão usando chaves agora e as vendas aprovadas no mês. “Atualizar” recarrega tudo.</p>
 
       <article class="dash__card adm__lista">
         <div class="adm__listahead">
-          <div><small>Chaves</small><h3 id="lista-titulo">Todas as chaves</h3></div>
+          <div><small>Chaves</small><h3 id="lista-titulo">Todas as chaves</h3><p class="adm__ajuda">Busque por chave, e-mail ou observação e filtre pelo estado. Clique na chave para copiar e em “Gerenciar” para editar.</p></div>
           <input type="search" id="busca" placeholder="Buscar chave, e-mail ou observação" aria-label="Buscar chaves" />
         </div>
         <div class="adm__filtros" role="group" aria-label="Filtrar">
@@ -71,6 +72,7 @@
         <article class="dash__card adm__nova">
           <small>Nova chave</small>
           <h3>Gerar chave</h3>
+          <p class="adm__ajuda">Cria uma chave na hora, sem pagamento. Dias e PCs em branco usam o padrão do plano. Com e-mail, o cliente vê a chave ao entrar na Área do assinante.</p>
           <form id="form-nova" novalidate>
             <label class="field"><span>Plano</span>
               <select name="plan">
@@ -94,9 +96,25 @@
 
         <article class="dash__card adm__vendas">
           <small>Vendas</small><h3>Últimos pagamentos aprovados</h3>
+          <p class="adm__ajuda">Cada pagamento aprovado pelo Mercado Pago aparece aqui. “Nova” indica uma chave criada na compra e “renovação” indica dias somados a uma chave que o cliente já tinha.</p>
           <div class="adm__tabela" id="vendas"></div>
         </article>
       </div>
+
+      <article class="dash__card dash__card--guia adm__guia">
+        <small>Como funciona</small><h3>Guia do painel de admin</h3>
+        <dl class="dash__guia">
+          <div><dt>Resumo</dt><dd>Mostra chaves ativas, vencendo em 7 dias, vencidas, PCs conectados e as vendas e a receita do mês e no total.</dd></div>
+          <div><dt>Gerar chave</dt><dd>Cria uma chave sem pagamento, para cortesia, parceiro ou venda feita por fora. Escolha o plano e, se quiser, e-mail, dias, PCs e uma observação.</dd></div>
+          <div><dt>Buscar e filtrar</dt><dd>Encontre qualquer chave pelo código, e-mail ou observação. Os filtros separam ativas, vencendo, vencidas e bloqueadas.</dd></div>
+          <div><dt>Gerenciar</dt><dd>Abre a chave para trocar plano, número de PCs, e-mail do cliente e observação.</dd></div>
+          <div><dt>Renovar</dt><dd>Dentro de “Gerenciar”, some dias à chave. Se ela já venceu, os dias contam a partir de hoje. Chaves vitalícias não precisam.</dd></div>
+          <div><dt>Liberar PC</dt><dd>Remove um computador da chave para o cliente ativar em outro.</dd></div>
+          <div><dt>Bloquear</dt><dd>Desativa a chave na hora, mesmo dentro da validade. Pode ser desfeito com “Desbloquear”.</dd></div>
+          <div><dt>Vendas</dt><dd>Lista os pagamentos aprovados, com o valor, o plano e a chave que foi criada ou renovada.</dd></div>
+          <div><dt>Quem é admin</dt><dd>Só os e-mails cadastrados como admin conseguem abrir este painel. Os outros veem “acesso restrito”.</dd></div>
+        </dl>
+      </article>
     </div>
     <p class="dash__toast" role="status" hidden></p>
   </main>
@@ -113,6 +131,7 @@
       </div>
       <label class="field"><span>E-mail do cliente</span><input type="email" name="email" placeholder="sem e-mail" /></label>
       <label class="field"><span>Observação</span><input type="text" name="note" maxlength="120" /></label>
+      <p class="adm__ajuda">Mude os dados e clique em “Salvar”. Para renovar, escolha +7, +30, +90 ou digite outro número: os dias são somados à validade atual (ou a partir de hoje, se já venceu).</p>
       <div class="adm__renovar">
         <span>Adicionar dias</span>
         <div><button type="button" data-dias="7">+7</button><button type="button" data-dias="30">+30</button><button type="button" data-dias="90">+90</button>
@@ -120,6 +139,7 @@
       </div>
       <div class="adm__pcsdlg"></div>
       <p class="checkout__msg" hidden></p>
+      <p class="adm__ajuda">“Liberar” desconecta um PC para a chave poder ser ativada em outro. “Bloquear” desliga a chave na hora (use quando alguém compartilhar ou vender); “Desbloquear” volta a liberar.</p>
       <div class="adm__dlgacoes">
         <button type="button" class="btn btn--ghost btn--sm" data-acao="bloquear">Bloquear</button>
         <button type="submit" class="btn btn--primary btn--sm" value="salvar">Salvar</button>
