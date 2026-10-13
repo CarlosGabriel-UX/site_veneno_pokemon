@@ -1,4 +1,4 @@
-// Catálogo de jogos do Injection.
+// Catálogo de jogos do Noctis.
 // Para adicionar um jogo: copie um bloco abaixo, mude o "slug" e crie jogos/<slug>.html
 // (basta copiar jogos/optpokemon.html e trocar o data-game).
 // status: "disponivel" mostra a página completa; "em-breve" mostra o card desativado na vitrine.
@@ -10,7 +10,7 @@ window.INJECTION_GAMES = [
     status: "disponivel",
     resumo: "Caçada automática, auto-cura, coleta de loot e rotinas prontas.",
     titulo: "Automatize sua rotina no OptPokemon.",
-    descricao: "O Injection OptPokemon cuida da caçada, da cura, do loot e das rotinas repetitivas. Configure em minutos e acompanhe tudo pela sua área de assinante.",
+    descricao: "O Noctis OptPokemon cuida da caçada, da cura, do loot e das rotinas repetitivas. Configure em minutos e acompanhe tudo pela sua área de assinante.",
     // Cor de destaque da página e do card na vitrine
     cor: "#ff2d3f",
     // Slides do topo (imagens em assets/pokemon/ ou assets/arte/)
@@ -69,7 +69,7 @@ window.INJECTION_GAMES = [
     faq: [
       ["Funciona em qualquer computador?", "Roda no Windows 10 ou 11. Recomendamos deixar o jogo em janela com a resolução indicada no guia de instalação."],
       ["Posso usar em mais de uma conta?", "Sim. O número de contas depende do plano: 1 no Semanal, 2 no Pro e 5 no Max."],
-      ["Existe risco para a minha conta?", "Todo uso de automação em jogos online envolve risco. Leia as regras do OptPokemon e use com responsabilidade. O Injection não é afiliado ao OptPokemon."]
+      ["Existe risco para a minha conta?", "Todo uso de automação em jogos online envolve risco. Leia as regras do OptPokemon e use com responsabilidade. O Noctis não é afiliado ao OptPokemon."]
     ],
     aviso: "Não afiliado ao OptPokemon, Nintendo ou The Pokémon Company."
   },
@@ -81,9 +81,9 @@ window.INJECTION_GAMES = [
     cor: "#ff8a1f",
     resumo: "Em desenvolvimento. Entre no Discord para ser avisado do lançamento.",
     slides: [
-      { img: "arte/mira.svg", palavra: "MIRA", cor: "#ff8a1f", texto: "O Injection CS:GO está em desenvolvimento. Entre no Discord para ser avisado no lançamento." },
+      { img: "arte/mira.svg", palavra: "MIRA", cor: "#ff8a1f", texto: "O Noctis CS:GO está em desenvolvimento. Entre no Discord para ser avisado no lançamento." },
       { img: "arte/radar.svg", palavra: "RADAR", cor: "#3fa7e4", texto: "Quer ajudar a decidir os recursos? Vote no nosso Discord." },
-      { img: "arte/tatico.svg", palavra: "TÁTICO", cor: "#ff8a1f", texto: "Assinantes do Injection recebem acesso antecipado aos testes." }
+      { img: "arte/tatico.svg", palavra: "TÁTICO", cor: "#ff8a1f", texto: "Assinantes do Noctis recebem acesso antecipado aos testes." }
     ],
     script: { estado: "dev", versao: "", atualizado: "" },
     aviso: "Não afiliado à Valve Corporation."

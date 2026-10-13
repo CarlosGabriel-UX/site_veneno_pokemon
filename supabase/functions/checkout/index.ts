@@ -56,7 +56,7 @@ Deno.serve(async (req) => {
         failure: `${area}?pagamento=falhou`,
       },
       auto_return: "approved",
-      statement_descriptor: "INJECTION",
+      statement_descriptor: "NOCTIS",
       payment_methods: { installments: 1 },
     }),
   });

@@ -72,10 +72,10 @@ Deno.serve(async (req) => {
 
   const { data: reg } = await db.from("pagamentos").select("email_enviado").eq("mp_payment_id", dataId).single();
   if (!reg?.email_enviado) {
-    const titulo = chave_nova ? "Sua chave do Injection chegou" : "Sua assinatura foi renovada";
+    const titulo = chave_nova ? "Sua chave do Noctis chegou" : "Sua assinatura foi renovada";
     const enviado = await enviarEmail(
       pedido.email,
-      chave_nova ? "Sua chave do Injection" : "Assinatura do Injection renovada",
+      chave_nova ? "Sua chave do Noctis" : "Assinatura do Noctis renovada",
       titulo,
       paragrafo(`Pagamento confirmado. Plano <b>${nomePlano(pedido.plan)}</b>, válido até <b>${dataBR(expires_at)}</b>.`) +
         paragrafo(chave_nova ? "Esta é a sua chave de ativação:" : "Sua chave continua a mesma:") +

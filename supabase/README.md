@@ -25,7 +25,7 @@ Lembre de atualizar também os preços exibidos em `assets/games.js`.
 - **Edge Functions > Secrets:**
   - `MP_ACCESS_TOKEN`: Access Token de produção do Mercado Pago.
   - `MP_WEBHOOK_SECRET`: assinatura secreta do webhook (Mercado Pago > Suas integrações > Webhooks).
-  - `RESEND_API_KEY` e `EMAIL_FROM` (ex.: `Injection <nao-responda@seudominio.com>`): e-mails da chave e dos lembretes.
+  - `RESEND_API_KEY` e `EMAIL_FROM` (ex.: `Noctis <nao-responda@seudominio.com>`): e-mails da chave e dos lembretes.
 - **Mercado Pago > Webhooks:** URL `https://shuyydpwkgoxheilwggf.supabase.co/functions/v1/mercadopago-webhook`, evento "Pagamentos".
 - **Storage > downloads:** envie o instalador do script.
 

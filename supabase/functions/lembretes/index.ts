@@ -22,7 +22,7 @@ Deno.serve(async (req) => {
     if (l.aviso_vencimento_em && new Date(l.aviso_vencimento_em) > new Date(new Date(l.expires_at).getTime() - (DIAS + 1) * 864e5)) continue;
     const ok = await enviarEmail(
       l.email,
-      "Sua assinatura do Injection vence em breve",
+      "Sua assinatura do Noctis vence em breve",
       "Sua assinatura vence em breve",
       paragrafo(`Seu plano <b>${nomePlano(l.plan)}</b> vence em <b>${dataBR(l.expires_at)}</b>.`) +
         paragrafo("Para continuar usando, renove pelo site com este mesmo e-mail. A validade é somada ao que ainda falta, e a chave continua a mesma.") +

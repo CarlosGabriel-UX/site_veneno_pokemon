@@ -1,4 +1,4 @@
-# Injection — scripts e macros por assinatura
+# Noctis — scripts e macros por assinatura
 
 Site estático (HTML, CSS e JS puro), pronto para GitHub Pages.
 
