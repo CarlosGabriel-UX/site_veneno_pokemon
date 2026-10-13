@@ -182,7 +182,7 @@
     var total = l.plan === "semanal" ? 7 : 30;
     var pct = d === null ? 100 : Math.max(0, Math.min(100, Math.round(d / Math.max(total, d) * 100)));
     var pcs = l.pcs || [];
-    return '<article class="dash__card dash__card--sub" style="--neon:' + esc(g0.cor || "#ff2d3f") + '">' +
+    return '<article class="dash__card dash__card--sub" style="--neon:' + esc(g0.cor || "#dfe6ff") + '">' +
       (g0.slides ? '<img class="dash__art" src="assets/' + esc(g0.slides[0].img) + '" alt="" aria-hidden="true" />' : '') +
       '<small>Assinatura</small><h2>Noctis ' + esc(g0.nome || "") + '</h2>' +
       '<p class="dash__plan">Plano ' + esc(NOMES[l.plan] || l.plan) + ' ' + statusLic(l) + '</p>' +

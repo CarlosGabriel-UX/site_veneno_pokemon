@@ -12,7 +12,7 @@ window.INJECTION_GAMES = [
     titulo: "Automatize sua rotina no OptPokemon.",
     descricao: "O Noctis OptPokemon cuida da caçada, da cura, do loot e das rotinas repetitivas. Configure em minutos e acompanhe tudo pela sua área de assinante.",
     // Cor de destaque da página e do card na vitrine
-    cor: "#ff2d3f",
+    cor: "#dfe6ff",
     // Slides do topo (imagens em assets/pokemon/ ou assets/arte/)
     slides: [
       { img: "pokemon/gengar.png", palavra: "GENGAR", cor: "#7b3fe4", texto: "Pronto para deixar o script caçar por você enquanto descansa e voltar com a mochila cheia?" },
