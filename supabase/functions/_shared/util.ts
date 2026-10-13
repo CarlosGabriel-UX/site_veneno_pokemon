@@ -43,9 +43,9 @@ export async function enviarEmail(para: string, assunto: string, titulo: string,
     console.warn("E-mail não enviado: configure RESEND_API_KEY e EMAIL_FROM.");
     return false;
   }
-  const html = `<!doctype html><html><body style="margin:0;background:#0b0b0c;font-family:Arial,Helvetica,sans-serif;color:#ececec">
+  const html = `<!doctype html><html><body style="margin:0;background:#07080c;font-family:Arial,Helvetica,sans-serif;color:#ececec">
   <div style="max-width:520px;margin:0 auto;padding:32px 24px">
-    <p style="font-size:22px;font-weight:800;letter-spacing:2px;margin:0 0 24px">NOCTIS<span style="color:#ff2d3f">_</span></p>
+    <p style="font-size:22px;font-weight:800;letter-spacing:2px;margin:0 0 24px">NOCTIS<span style="color:#dfe6ff">_</span></p>
     <h1 style="font-size:22px;margin:0 0 16px;color:#fff">${esc(titulo)}</h1>
     ${corpoHtml}
     <p style="margin-top:32px;font-size:12px;color:#7b7b80">Você recebeu este e-mail porque assinou o Noctis com este endereço.</p>
@@ -64,7 +64,7 @@ export function caixaChave(chave: string) {
 }
 
 export function botao(texto: string, href: string) {
-  return `<p style="margin:24px 0"><a href="${esc(href)}" style="background:#ff2d3f;color:#fff;text-decoration:none;font-weight:700;padding:12px 22px;border-radius:999px;display:inline-block">${esc(texto)}</a></p>`;
+  return `<p style="margin:24px 0"><a href="${esc(href)}" style="background:#dfe6ff;color:#07080c;text-decoration:none;font-weight:700;padding:12px 22px;border-radius:999px;display:inline-block">${esc(texto)}</a></p>`;
 }
 
 export function paragrafo(t: string) {
