@@ -10,11 +10,11 @@ create table public.precos (
 );
 alter table public.precos enable row level security;
 insert into public.precos (plan, periodo, dias, valor, titulo) values
-  ('semanal','semanal', 7,   9.90, 'Injection OptPokemon - Semanal (7 dias)'),
-  ('pro',    'mensal',  30, 29.90, 'Injection OptPokemon - Pro (30 dias)'),
-  ('pro',    'trimestral', 90, 76.20, 'Injection OptPokemon - Pro (90 dias)'),
-  ('max',    'mensal',  30, 59.90, 'Injection OptPokemon - Max (30 dias)'),
-  ('max',    'trimestral', 90, 152.70, 'Injection OptPokemon - Max (90 dias)');
+  ('semanal','semanal', 7,   9.90, 'Noctis OptPokemon - Semanal (7 dias)'),
+  ('pro',    'mensal',  30, 29.90, 'Noctis OptPokemon - Pro (30 dias)'),
+  ('pro',    'trimestral', 90, 76.20, 'Noctis OptPokemon - Pro (90 dias)'),
+  ('max',    'mensal',  30, 59.90, 'Noctis OptPokemon - Max (30 dias)'),
+  ('max',    'trimestral', 90, 152.70, 'Noctis OptPokemon - Max (90 dias)');
 
 -- Pedido criado ao abrir o checkout; o id vai como external_reference no Mercado Pago
 create table public.pedidos (

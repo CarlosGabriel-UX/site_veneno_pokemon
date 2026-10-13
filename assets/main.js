@@ -201,7 +201,7 @@
           (g.faq || []).map(function (f) { return '<details><summary>' + esc(f[0]) + '</summary><p>' + esc(f[1]) + '</p></details>'; }).join("") +
         '</div></div></section>' +
 
-        '<section class="cta"><div class="container cta__inner"><h2>Pronto para injetar?</h2><p>Assine o Noctis ' + esc(g.nome) + ' e comece hoje mesmo.</p><a href="#planos" class="btn btn--primary">Escolher plano</a></div></section>';
+        '<section class="cta"><div class="container cta__inner"><h2>A noite é sua</h2><p>Assine o Noctis ' + esc(g.nome) + ' e comece hoje mesmo.</p><a href="#planos" class="btn btn--primary">Escolher plano</a></div></section>';
     }
   }
 
@@ -304,6 +304,91 @@
       });
       el.addEventListener("pointerleave", function () { el.style.transform = ""; });
     });
+  }
+
+  // Céu estrelado com estrelas cadentes no topo
+  var ceu = document.querySelector(".marca__ceu");
+  if (ceu && ceu.getContext) {
+    var cx = ceu.getContext("2d"), estrelas = [], cadentes = [], W = 0, H = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var medir = function () {
+      W = ceu.clientWidth; H = ceu.clientHeight;
+      ceu.width = W * dpr; ceu.height = H * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      estrelas = [];
+      for (var i = 0, n = Math.round(W * H / 5200); i < n; i++) {
+        estrelas.push({ x: Math.random() * W, y: Math.random() * H * 0.85, r: Math.random() * 1.2 + 0.2, f: Math.random() * 6.28, v: Math.random() * 0.02 + 0.006 });
+      }
+    };
+    var desenhar = function () {
+      cx.clearRect(0, 0, W, H);
+      estrelas.forEach(function (s) {
+        s.f += s.v;
+        cx.globalAlpha = 0.25 + 0.6 * Math.abs(Math.sin(s.f));
+        cx.fillStyle = "#e6ebff";
+        cx.beginPath(); cx.arc(s.x, s.y, s.r, 0, 6.283); cx.fill();
+      });
+      if (Math.random() < 0.004 && cadentes.length < 2) {
+        cadentes.push({ x: Math.random() * W * 0.8 + W * 0.1, y: Math.random() * H * 0.35, vx: -(4 + Math.random() * 3), vy: 2 + Math.random() * 1.5, vida: 1 });
+      }
+      cadentes = cadentes.filter(function (c) {
+        c.x += c.vx; c.y += c.vy; c.vida -= 0.012;
+        var g = cx.createLinearGradient(c.x, c.y, c.x - c.vx * 14, c.y - c.vy * 14);
+        g.addColorStop(0, "rgba(235,240,255," + c.vida + ")"); g.addColorStop(1, "rgba(235,240,255,0)");
+        cx.globalAlpha = 1; cx.strokeStyle = g; cx.lineWidth = 1.6;
+        cx.beginPath(); cx.moveTo(c.x, c.y); cx.lineTo(c.x - c.vx * 14, c.y - c.vy * 14); cx.stroke();
+        return c.vida > 0;
+      });
+      cx.globalAlpha = 1;
+    };
+    medir();
+    window.addEventListener("resize", medir);
+    if (reduce) desenhar();
+    else {
+      var visivel = true;
+      if ("IntersectionObserver" in window) new IntersectionObserver(function (e) { visivel = e[0].isIntersecting; }).observe(ceu);
+      (function loop() { if (visivel && !document.hidden) desenhar(); requestAnimationFrame(loop); })();
+    }
+  }
+
+  // Lua do topo acompanha o mouse
+  var marca = document.querySelector(".marca");
+  if (marca && !reduce && finePointer) {
+    marca.addEventListener("pointermove", function (e) {
+      var r = marca.getBoundingClientRect();
+      marca.style.setProperty("--mx", ((e.clientX - r.left) / r.width - 0.5).toFixed(3));
+      marca.style.setProperty("--my", ((e.clientY - r.top) / r.height - 0.5).toFixed(3));
+    });
+    marca.addEventListener("pointerleave", function () { marca.style.setProperty("--mx", 0); marca.style.setProperty("--my", 0); });
+  }
+
+  // Luz da lua seguindo o mouse e barra de leitura
+  if (!reduce) {
+    if (finePointer) {
+      var luz = document.createElement("div");
+      luz.className = "luz"; luz.setAttribute("aria-hidden", "true");
+      document.body.appendChild(luz);
+      window.addEventListener("pointermove", function (e) {
+        luz.style.setProperty("--lx", e.clientX + "px"); luz.style.setProperty("--ly", e.clientY + "px");
+      }, { passive: true });
+    }
+    var barra = document.createElement("div");
+    barra.className = "progresso"; barra.setAttribute("aria-hidden", "true");
+    document.body.appendChild(barra);
+    var progresso = function () {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      barra.style.setProperty("--p", max > 0 ? (window.scrollY / max).toFixed(4) : 0);
+    };
+    window.addEventListener("scroll", progresso, { passive: true });
+    progresso();
+  }
+
+  // Linha entre os passos se desenha ao aparecer
+  var passos = document.querySelector(".steps");
+  if (passos) {
+    if (reduce || !("IntersectionObserver" in window)) passos.classList.add("is-in");
+    else {
+      var ioP = new IntersectionObserver(function (e) { if (e[0].isIntersecting) { passos.classList.add("is-in"); ioP.disconnect(); } }, { threshold: 0.3 });
+      ioP.observe(passos);
+    }
   }
 
   // Menu fica mais compacto ao rolar
