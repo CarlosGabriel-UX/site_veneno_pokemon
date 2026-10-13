@@ -309,28 +309,47 @@
   // Céu estrelado com estrelas cadentes no topo
   var ceu = document.querySelector(".marca__ceu");
   if (ceu && ceu.getContext) {
-    var cx = ceu.getContext("2d"), estrelas = [], cadentes = [], W = 0, H = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var cx = ceu.getContext("2d"), estrelas = [], cadentes = [], W = 0, H = 0, dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     var medir = function () {
       W = ceu.clientWidth; H = ceu.clientHeight;
-      ceu.width = W * dpr; ceu.height = H * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ceu.width = W * dpr; ceu.height = H * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0); chao.g = null;
       estrelas = [];
-      for (var i = 0, n = Math.round(W * H / 5200); i < n; i++) {
-        estrelas.push({ x: Math.random() * W, y: Math.random() * H * 0.85, r: Math.random() * 1.2 + 0.2, f: Math.random() * 6.28, v: Math.random() * 0.02 + 0.006 });
+      for (var i = 0, n = Math.min(160, Math.round(W * H / 7000)); i < n; i++) {
+        estrelas.push({ x: Math.random() * W, y: Math.random() * H * 0.6, r: Math.random() * 1.2 + 0.2, f: Math.random() * 6.28, v: Math.random() * 0.02 + 0.006 });
+      }
+    };
+    var piso = 0;
+    var chao = function () {
+      // Chão em perspectiva que corre na direção de quem olha
+      var hz = H * 0.6, cxm = W / 2, fundo = H - hz;
+      piso = (piso + 0.012) % 1;
+      cx.lineWidth = 1;
+      if (!chao.g) { chao.g = cx.createLinearGradient(0, hz, 0, H); chao.g.addColorStop(0, "rgba(196,210,255,0)"); chao.g.addColorStop(0.45, "rgba(196,210,255,.16)"); chao.g.addColorStop(1, "rgba(196,210,255,.24)"); }
+      cx.globalAlpha = 1; cx.strokeStyle = chao.g;
+      cx.beginPath();
+      for (var i = -14; i <= 14; i++) { cx.moveTo(cxm + i * 18, hz); cx.lineTo(cxm + i * W * 0.16, H); }
+      cx.stroke();
+      cx.strokeStyle = "#c4d2ff";
+      for (var j = 0; j < 12; j++) {
+        var k = (j + piso) / 12, y = hz + fundo * k * k;
+        cx.globalAlpha = 0.3 * k * k;
+        cx.beginPath(); cx.moveTo(0, y); cx.lineTo(W, y); cx.stroke();
       }
     };
     var desenhar = function () {
       cx.clearRect(0, 0, W, H);
+      chao();
+      cx.fillStyle = "#e6ebff";
       estrelas.forEach(function (s) {
-        s.f += s.v;
+        s.f += s.v * 2;
         cx.globalAlpha = 0.25 + 0.6 * Math.abs(Math.sin(s.f));
-        cx.fillStyle = "#e6ebff";
-        cx.beginPath(); cx.arc(s.x, s.y, s.r, 0, 6.283); cx.fill();
+        cx.fillRect(s.x, s.y, s.r * 1.6, s.r * 1.6);
       });
-      if (Math.random() < 0.004 && cadentes.length < 2) {
+      if (Math.random() < 0.008 && cadentes.length < 2) {
         cadentes.push({ x: Math.random() * W * 0.8 + W * 0.1, y: Math.random() * H * 0.35, vx: -(4 + Math.random() * 3), vy: 2 + Math.random() * 1.5, vida: 1 });
       }
       cadentes = cadentes.filter(function (c) {
-        c.x += c.vx; c.y += c.vy; c.vida -= 0.012;
+        c.x += c.vx * 2; c.y += c.vy * 2; c.vida -= 0.024;
         var g = cx.createLinearGradient(c.x, c.y, c.x - c.vx * 14, c.y - c.vy * 14);
         g.addColorStop(0, "rgba(235,240,255," + c.vida + ")"); g.addColorStop(1, "rgba(235,240,255,0)");
         cx.globalAlpha = 1; cx.strokeStyle = g; cx.lineWidth = 1.6;
@@ -340,36 +359,39 @@
       cx.globalAlpha = 1;
     };
     medir();
-    window.addEventListener("resize", medir);
+    var tMedir; window.addEventListener("resize", function () { clearTimeout(tMedir); tMedir = setTimeout(medir, 150); });
     if (reduce) desenhar();
     else {
       var visivel = true;
       if ("IntersectionObserver" in window) new IntersectionObserver(function (e) { visivel = e[0].isIntersecting; }).observe(ceu);
-      (function loop() { if (visivel && !document.hidden) desenhar(); requestAnimationFrame(loop); })();
+      var ultimo = 0;
+      (function loop(t) {
+        requestAnimationFrame(loop);
+        if (!visivel || document.hidden || t - ultimo < 33) return;
+        ultimo = t; desenhar();
+      })(0);
     }
   }
 
   // Lua do topo acompanha o mouse
   var marca = document.querySelector(".marca");
   if (marca && !reduce && finePointer) {
+    var pend = null;
     marca.addEventListener("pointermove", function (e) {
-      var r = marca.getBoundingClientRect();
-      marca.style.setProperty("--mx", ((e.clientX - r.left) / r.width - 0.5).toFixed(3));
-      marca.style.setProperty("--my", ((e.clientY - r.top) / r.height - 0.5).toFixed(3));
+      if (pend) return;
+      var x = e.clientX, y = e.clientY;
+      pend = requestAnimationFrame(function () {
+        pend = null;
+        var r = marca.getBoundingClientRect();
+        marca.style.setProperty("--mx", ((x - r.left) / r.width - 0.5).toFixed(3));
+        marca.style.setProperty("--my", ((y - r.top) / r.height - 0.5).toFixed(3));
+      });
     });
     marca.addEventListener("pointerleave", function () { marca.style.setProperty("--mx", 0); marca.style.setProperty("--my", 0); });
   }
 
-  // Luz da lua seguindo o mouse e barra de leitura
+  // Barra de leitura
   if (!reduce) {
-    if (finePointer) {
-      var luz = document.createElement("div");
-      luz.className = "luz"; luz.setAttribute("aria-hidden", "true");
-      document.body.appendChild(luz);
-      window.addEventListener("pointermove", function (e) {
-        luz.style.setProperty("--lx", e.clientX + "px"); luz.style.setProperty("--ly", e.clientY + "px");
-      }, { passive: true });
-    }
     var barra = document.createElement("div");
     barra.className = "progresso"; barra.setAttribute("aria-hidden", "true");
     document.body.appendChild(barra);
