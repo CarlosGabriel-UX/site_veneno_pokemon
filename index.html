@@ -40,40 +40,22 @@
       <div class="container marca__inner">
         <svg class="marca__logo" viewBox="0 0 200 200" aria-hidden="true">
           <defs>
-            <linearGradient id="mg" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#ff4757"/><stop offset=".55" stop-color="#ff2d3f"/><stop offset="1" stop-color="#e4e4e7"/>
-            </linearGradient>
-            <linearGradient id="mm" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#8e8e95"/><stop offset=".45" stop-color="#f4f4f5"/><stop offset="1" stop-color="#71717a"/>
-            </linearGradient>
-            <linearGradient id="ml" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#a5101d"/><stop offset=".4" stop-color="#ff3b4c"/><stop offset="1" stop-color="#8f0d18"/>
-            </linearGradient>
-            <radialGradient id="mf" cx=".5" cy=".45" r=".6">
-              <stop offset="0" stop-color="#2a0a0e"/><stop offset=".7" stop-color="#0d0d10"/><stop offset="1" stop-color="#060607"/>
-            </radialGradient>
-            <clipPath id="mbarrel"><rect x="83" y="66" width="34" height="57" rx="3"/></clipPath>
+            <mask id="mlua">
+              <rect width="200" height="200" fill="#000"/>
+              <circle cx="92" cy="92" r="70" fill="#fff"/>
+              <circle cx="114" cy="84" r="60" fill="#000"/>
+            </mask>
           </defs>
-          <path class="marca__box" pathLength="1" d="M100 8 180 54v92l-80 46-80-46V54Z" fill="url(#mf)" stroke="url(#mg)" stroke-width="5" stroke-linejoin="round"/>
-          <path class="marca__anel" d="M100 24 166 62v76l-66 38-66-38V62Z" fill="none" stroke="#ff2d3f" stroke-opacity=".22" stroke-width="1.5" stroke-dasharray="3 5"/>
-          <g transform="translate(95 95) scale(1.12) rotate(-45) translate(-100 -98)">
-            <g clip-path="url(#mbarrel)"><rect class="marca__liquid" x="83" y="72" width="34" height="51" fill="url(#ml)"/></g>
-            <g class="marca__plunger">
-              <rect x="80" y="22" width="40" height="8" rx="4" fill="url(#mm)"/>
-              <rect x="96" y="29" width="8" height="38" fill="url(#mm)"/>
-              <rect x="83" y="64" width="34" height="8" rx="2" fill="#1c1c20" stroke="#52525b" stroke-width="1"/>
-            </g>
-            <g class="marca__syringe" fill="none" stroke-linecap="round">
-              <rect x="70" y="56" width="60" height="8" rx="4" fill="url(#mm)" stroke="none"/>
-              <rect pathLength="1" x="80" y="62" width="40" height="64" rx="6" stroke="url(#mg)" stroke-width="4"/>
-              <path d="M84 82h9M84 92h6M84 102h9M84 112h6" stroke="#fff" stroke-opacity=".55" stroke-width="2"/>
-              <rect x="111" y="68" width="3" height="52" rx="1.5" fill="#fff" fill-opacity=".28" stroke="none"/>
-              <path d="M90 126h20l-6 12h-8Z" fill="url(#mm)" stroke="none"/>
-              <path d="M100 138v34" stroke="#d4d4d8" stroke-width="3"/>
+          <rect class="marca__lua" width="200" height="200" fill="#fff" mask="url(#mlua)"/>
+          <g class="marca__gotas" fill="#fff"><path d="M54.5 146h7l-1.5 26.0h-3.9z M71.0 152h8l-1.8 37.8h-4.5z M90.0 156h6l-1.3 20.3h-3.4z M108.5 153h5l-1.1 13.6h-2.8z M126.0 145h6l-1.3 35.3h-3.4z M65.75 40h4.5l-1.0 20.7h-2.5z M83.25 32h3.5l-0.8 13.0h-2.0z"/><circle cx="58" cy="172.0" r="2.6"/><circle cx="75" cy="189.8" r="3.0"/><circle cx="93" cy="176.3" r="2.3"/><circle cx="111" cy="166.6" r="1.9"/><circle cx="129" cy="180.3" r="2.3"/><circle cx="68" cy="60.7" r="1.7"/><circle cx="85" cy="45.0" r="1.3"/></g>
+          <circle class="marca__drop" cx="58" cy="172" r="3" fill="#fff"/>
+          <circle class="marca__drop marca__drop--2" cx="129" cy="180" r="2.6" fill="#fff"/>
+          <g class="marca__carta">
+            <g transform="rotate(16 122 92)">
+              <rect x="98" y="58" width="48" height="68" rx="6" fill="#000" stroke="#fff" stroke-width="6"/>
+              <path fill="#fff" d="M122 74c4 8 15 12 15 20 0 7-8 9-12 4l3 9h-12l3-9c-4 5-12 3-12-4 0-8 11-12 15-20z"/>
             </g>
           </g>
-          <circle class="marca__drop" cx="155" cy="155" r="4.5" fill="#ff2d3f"/>
-          <circle class="marca__drop marca__drop--2" cx="155" cy="155" r="3" fill="#ff2d3f"/>
         </svg>
         <p class="marca__tag"><span class="marca__dot" aria-hidden="true"></span>scripts e macros para jogos</p>
         <h1 class="marca__nome" id="marca-titulo" aria-label="Injection">
