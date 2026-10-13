@@ -45,10 +45,10 @@ export async function enviarEmail(para: string, assunto: string, titulo: string,
   }
   const html = `<!doctype html><html><body style="margin:0;background:#0b0b0c;font-family:Arial,Helvetica,sans-serif;color:#ececec">
   <div style="max-width:520px;margin:0 auto;padding:32px 24px">
-    <p style="font-size:22px;font-weight:800;letter-spacing:2px;margin:0 0 24px">INJECTION<span style="color:#ff2d3f">_</span></p>
+    <p style="font-size:22px;font-weight:800;letter-spacing:2px;margin:0 0 24px">NOCTIS<span style="color:#ff2d3f">_</span></p>
     <h1 style="font-size:22px;margin:0 0 16px;color:#fff">${esc(titulo)}</h1>
     ${corpoHtml}
-    <p style="margin-top:32px;font-size:12px;color:#7b7b80">Você recebeu este e-mail porque assinou o Injection com este endereço.</p>
+    <p style="margin-top:32px;font-size:12px;color:#7b7b80">Você recebeu este e-mail porque assinou o Noctis com este endereço.</p>
   </div></body></html>`;
   const r = await fetch("https://api.resend.com/emails", {
     method: "POST",

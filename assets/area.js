@@ -182,9 +182,9 @@
     var total = l.plan === "semanal" ? 7 : 30;
     var pct = d === null ? 100 : Math.max(0, Math.min(100, Math.round(d / Math.max(total, d) * 100)));
     var pcs = l.pcs || [];
-    return '<article class="dash__card dash__card--sub" style="--neon:' + esc(g0.cor || "#ff2d3f") + '">' +
+    return '<article class="dash__card dash__card--sub" style="--neon:' + esc(g0.cor || "#dfe6ff") + '">' +
       (g0.slides ? '<img class="dash__art" src="assets/' + esc(g0.slides[0].img) + '" alt="" aria-hidden="true" />' : '') +
-      '<small>Assinatura</small><h2>Injection ' + esc(g0.nome || "") + '</h2>' +
+      '<small>Assinatura</small><h2>Noctis ' + esc(g0.nome || "") + '</h2>' +
       '<p class="dash__plan">Plano ' + esc(NOMES[l.plan] || l.plan) + ' ' + statusLic(l) + '</p>' +
       '<dl><div><dt>' + (l.ativa ? "Válida até" : "Venceu em") + '</dt><dd>' + esc(dataBR(l.expires_at)) + '</dd></div>' +
         '<div><dt>PCs em uso</dt><dd>' + pcs.length + ' de ' + l.max_machines + '</dd></div></dl>' +
@@ -221,7 +221,7 @@
         '<div class="dash__actions"><button class="btn btn--ghost btn--sm" type="button" data-act="senha">Alterar senha</button>' +
         '<button class="btn btn--ghost btn--sm" type="button" data-act="sair">Sair</button></div></header>' +
       '<div class="dash__grid">' + corpo +
-        '<article class="dash__card"><small>Download</small><h3>Injection ' + esc(g0.nome || "") + (sc.versao ? ' v' + esc(sc.versao) : '') + '</h3>' + (I.badge ? I.badge(g0) : '') +
+        '<article class="dash__card"><small>Download</small><h3>Noctis ' + esc(g0.nome || "") + (sc.versao ? ' v' + esc(sc.versao) : '') + '</h3>' + (I.badge ? I.badge(g0) : '') +
           '<p class="note">Windows 10/11 · 64 bits</p>' +
           '<button class="btn btn--primary btn--block" type="button" data-act="baixar"' + (ativa ? '' : ' disabled') + '>Baixar</button>' +
           (ativa ? '' : '<p class="note">O download libera com um plano ativo.</p>') + '</article>' +

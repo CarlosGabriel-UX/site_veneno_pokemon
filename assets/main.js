@@ -73,7 +73,7 @@
     var corpo = d.video
       ? '<video class="demo__video" src="' + esc(d.video) + '"' + (d.poster ? ' poster="' + esc(d.poster) + '"' : '') + ' controls preload="metadata" playsinline></video>'
       : '<div class="app" data-demo>' +
-          '<div class="app__bar"><span></span><span></span><span></span><p>Injection ' + esc(g.nome) + (g.script && g.script.versao ? ' v' + esc(g.script.versao) : '') + '</p>' + badge(g, true) + '</div>' +
+          '<div class="app__bar"><span></span><span></span><span></span><p>Noctis ' + esc(g.nome) + (g.script && g.script.versao ? ' v' + esc(g.script.versao) : '') + '</p>' + badge(g, true) + '</div>' +
           '<div class="app__body">' +
             '<ul class="app__side">' + [["Caçada", 1], ["Auto-cura", 1], ["Loot", 1], ["Alertas", 1], ["Anti-AFK", 0]].map(function (t) {
               return '<li><span>' + t[0] + '</span><b class="tog' + (t[1] ? " is-on" : "") + '"></b></li>'; }).join("") + '</ul>' +
@@ -83,7 +83,7 @@
               '<ol class="app__log" aria-live="off"></ol>' +
             '</div></div></div>';
     return '<section class="section" id="demo"><div class="container"><header class="section__head"><span class="eyebrow">Demonstração</span>' +
-      '<h2>Veja o script rodando</h2>' + (d.video ? '' : '<p>Simulação do painel do Injection ' + esc(g.nome) + '. O vídeo real entra aqui em breve.</p>') + '</header>' +
+      '<h2>Veja o script rodando</h2>' + (d.video ? '' : '<p>Simulação do painel do Noctis ' + esc(g.nome) + '. O vídeo real entra aqui em breve.</p>') + '</header>' +
       '<div class="demo">' + corpo + '</div></div></section>';
   }
 
@@ -120,11 +120,6 @@
   }
 
   // Vitrine de jogos (página inicial)
-  var hubStage = document.getElementById("hub-stage");
-  if (hubStage && games[0] && games[0].slides) {
-    hubStage.outerHTML = stage(games[0].slides, { base: "", label: "Em destaque: Injection " + games[0].nome, href: "jogos/" + games[0].slug + ".html", cta: "Ver planos", titulo: "Injection: scripts e macros para jogos" });
-  }
-
   var grid = document.getElementById("games-grid");
   if (grid) {
     grid.innerHTML = games.map(function (g) {
@@ -133,7 +128,7 @@
       return '<article class="game' + (on ? "" : " game--soon") + '"' + (g.cor ? ' style="--neon:' + esc(g.cor) + '"' : '') + '>' +
         (g.slides ? '<img class="game__art" src="assets/' + esc(g.slides[0].img) + '" alt="" aria-hidden="true" />' : '') +
         '<div class="game__top"><span class="game__tag">' + esc(g.tag) + '</span>' + badge(g, true) + '</div>' +
-        '<h3>Injection ' + esc(g.nome) + '</h3>' +
+        '<h3>Noctis ' + esc(g.nome) + '</h3>' +
         '<p>' + esc(g.resumo) + '</p>' +
         (on && p ? '<p class="game__price">a partir de <strong>R$ ' + esc(p.mensal) + '</strong>' + esc(p.per) + '</p>' : '') +
         (on ? '<a class="btn btn--primary btn--block" href="jogos/' + esc(g.slug) + '.html">Ver planos</a>'
@@ -158,19 +153,19 @@
     if (!g || g.status !== "disponivel") {
       var nome = g ? g.nome : "este jogo";
       document.querySelectorAll('.nav__links a[href^="#"]').forEach(function (a) { a.remove(); });
-      main.innerHTML = (g && g.slides ? stage(g.slides, { base: "../", label: "Injection " + nome + " · em breve", href: "#", link: "discord", cta: "Avise-me", titulo: "Injection " + nome, badge: badge(g) }) : "") +
+      main.innerHTML = (g && g.slides ? stage(g.slides, { base: "../", label: "Noctis " + nome + " · em breve", href: "#", link: "discord", cta: "Avise-me", titulo: "Noctis " + nome, badge: badge(g) }) : "") +
         '<section class="auth auth--soon"><div class="hero__glow" aria-hidden="true"></div><div class="auth__card">' +
         '<p class="auth__prompt">Em desenvolvimento</p>' +
-        '<h1>Injection ' + esc(nome) + '</h1>' +
+        '<h1>Noctis ' + esc(nome) + '</h1>' +
         '<p>Estamos desenvolvendo o script para ' + esc(nome) + '. Entre no Discord para ser avisado assim que lançar.</p>' +
         '<a class="btn btn--primary btn--block" href="#" data-link="discord">Avise-me no Discord</a>' +
         '<p class="auth__alt"><a href="../index.html#jogos">Ver outros jogos</a></p></div></section>';
     } else {
-      document.title = "Injection " + g.nome + " | Planos e recursos";
+      document.title = "Noctis " + g.nome + " | Planos e recursos";
             main.innerHTML =
-        (g.slides ? stage(g.slides, { base: "../", label: "Injection " + g.nome, href: "#planos", cta: "Assinar", titulo: "Injection " + g.nome, badge: badge(g) }) : "") +
+        (g.slides ? stage(g.slides, { base: "../", label: "Noctis " + g.nome, href: "#planos", cta: "Assinar", titulo: "Noctis " + g.nome, badge: badge(g) }) : "") +
         '<section class="section section--intro"><div class="container container--narrow intro">' +
-          badge(g) + '<span class="eyebrow">Injection ' + esc(g.nome) + '</span><h2>' + esc(g.titulo) + '</h2><p class="lead">' + esc(g.descricao) + '</p>' +
+          badge(g) + '<span class="eyebrow">Noctis ' + esc(g.nome) + '</span><h2>' + esc(g.titulo) + '</h2><p class="lead">' + esc(g.descricao) + '</p>' +
           '<ul class="hero__stats">' + (g.stats || []).map(function (s) { return '<li><strong>' + esc(s[0]) + '</strong><span>' + esc(s[1]) + '</span></li>'; }).join("") + '</ul>' +
         '</div></section>' +
 
@@ -184,8 +179,8 @@
         '<section class="pricing" id="planos"' + (g.slides ? ' style="--c:' + esc(g.slides[0].cor) + '"' : '') + '>' +
           (g.slides ? '<img class="pricing__blob" src="../assets/' + esc(g.slides[0].img) + '" alt="" aria-hidden="true" />' : '') +
           '<div class="container">' +
-          '<div class="pricing__title" aria-hidden="true"><span class="pricing__word">Planos</span><span class="pricing__brand">Injection ' + esc(g.nome) + '</span></div>' +
-          '<h2 class="sr-only">Planos do Injection ' + esc(g.nome) + '</h2>' +
+          '<div class="pricing__title" aria-hidden="true"><span class="pricing__word">Planos</span><span class="pricing__brand">Noctis ' + esc(g.nome) + '</span></div>' +
+          '<h2 class="sr-only">Planos do Noctis ' + esc(g.nome) + '</h2>' +
           '<div class="grid grid--3 plans">' +
           (g.planos || []).map(function (p) {
             return '<article class="plan' + (p.destaque ? " plan--featured" : "") + '">' +
@@ -206,7 +201,7 @@
           (g.faq || []).map(function (f) { return '<details><summary>' + esc(f[0]) + '</summary><p>' + esc(f[1]) + '</p></details>'; }).join("") +
         '</div></div></section>' +
 
-        '<section class="cta"><div class="container cta__inner"><h2>Pronto para injetar?</h2><p>Assine o Injection ' + esc(g.nome) + ' e comece hoje mesmo.</p><a href="#planos" class="btn btn--primary">Escolher plano</a></div></section>';
+        '<section class="cta"><div class="container cta__inner"><h2>Pronto para injetar?</h2><p>Assine o Noctis ' + esc(g.nome) + ' e comece hoje mesmo.</p><a href="#planos" class="btn btn--primary">Escolher plano</a></div></section>';
     }
   }
 
@@ -380,7 +375,7 @@
     dlg.innerHTML =
       '<form method="dialog" class="checkout__box" novalidate>' +
         '<button class="checkout__x" value="cancel" aria-label="Fechar">×</button>' +
-        '<small>Assinar</small><h2>Injection ' + esc(gAtual ? gAtual.nome : "") + ' · ' + esc(nomesPlano[plan] || plan) + '</h2>' +
+        '<small>Assinar</small><h2>Noctis ' + esc(gAtual ? gAtual.nome : "") + ' · ' + esc(nomesPlano[plan] || plan) + '</h2>' +
         '<p class="checkout__price" data-preco>Carregando preço…</p>' +
         '<label class="field"><span>Seu e-mail</span><input type="email" name="email" autocomplete="email" required placeholder="voce@email.com" value="' + esc(salvo) + '" /></label>' +
         '<p class="note">A chave chega neste e-mail, e é com ele que você entra na Área do assinante. Se já tem chave, a validade é somada.</p>' +

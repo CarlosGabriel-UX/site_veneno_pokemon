@@ -6,5 +6,5 @@ window.INJECTION_CONFIG = {
   // Usado quando o pagamento online ainda não está ativado.
   fallbackContato: "https://discord.gg/pKwmjqzYrT",
   discord: "https://discord.gg/pKwmjqzYrT",
-  email: "contato@injection.com"
+  email: "contato@noctis.com"
 };
