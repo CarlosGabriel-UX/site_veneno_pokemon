@@ -34,7 +34,49 @@
   </header>
 
   <main>
-    <section id="hub-stage"></section>
+    <section class="marca" aria-labelledby="marca-titulo">
+      <div class="marca__grid" aria-hidden="true"></div>
+      <div class="marca__glow" aria-hidden="true"></div>
+      <div class="container marca__inner">
+        <svg class="marca__logo" viewBox="0 0 200 200" aria-hidden="true">
+          <defs>
+            <linearGradient id="mg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ff2d3f"/><stop offset="1" stop-color="#d4d4d8"/>
+            </linearGradient>
+            <linearGradient id="ml" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ff5d6b"/><stop offset="1" stop-color="#c51626"/>
+            </linearGradient>
+            <clipPath id="mbarrel"><rect x="76" y="58" width="48" height="64" rx="4"/></clipPath>
+          </defs>
+          <rect class="marca__box" x="8" y="8" width="184" height="184" rx="30" fill="#09090b" stroke="url(#mg)" stroke-width="6"/>
+          <g transform="rotate(-45 100 100)">
+            <g clip-path="url(#mbarrel)"><rect class="marca__liquid" x="76" y="58" width="48" height="64" fill="url(#ml)"/></g>
+            <g class="marca__plunger" fill="none" stroke="url(#mg)" stroke-width="6" stroke-linecap="round">
+              <path d="M82 36h36M100 36v22"/>
+            </g>
+            <g class="marca__syringe" fill="none" stroke="url(#mg)" stroke-width="6" stroke-linecap="round">
+              <rect x="76" y="58" width="48" height="64" rx="4"/>
+              <path d="M100 122v34M84 80h14M84 96h14"/>
+            </g>
+          </g>
+          <circle class="marca__drop" cx="142" cy="142" r="4" fill="#ff2d3f"/>
+          <circle class="marca__drop marca__drop--2" cx="142" cy="142" r="3" fill="#ff2d3f"/>
+        </svg>
+        <p class="marca__tag"><span class="marca__dot" aria-hidden="true"></span>scripts e macros para jogos</p>
+        <h1 class="marca__nome" id="marca-titulo" aria-label="Injection">
+          <span aria-hidden="true">I</span><span aria-hidden="true">N</span><span aria-hidden="true">J</span><span aria-hidden="true">E</span><span aria-hidden="true">C</span><span aria-hidden="true">T</span><span aria-hidden="true">I</span><span aria-hidden="true">O</span><span aria-hidden="true">N</span><b aria-hidden="true">_</b>
+        </h1>
+        <p class="marca__sub">Escolha o jogo, assine o plano e jogue no automático. Tudo pela sua área do assinante.</p>
+        <div class="marca__cta">
+          <a class="btn btn--primary" href="#jogos">Ver jogos</a>
+          <a class="btn btn--ghost" href="area.html">Área do assinante</a>
+        </div>
+        <ul class="marca__chips" aria-label="Destaques">
+          <li>Windows 10/11</li><li>Ativação por chave</li><li>Atualizações inclusas</li>
+        </ul>
+      </div>
+      <a class="marca__scroll" href="#jogos" aria-label="Ir para os jogos"><span></span></a>
+    </section>
 
     <section class="section" id="jogos">
       <div class="container">

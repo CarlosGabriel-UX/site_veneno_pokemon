@@ -120,11 +120,6 @@
   }
 
   // Vitrine de jogos (página inicial)
-  var hubStage = document.getElementById("hub-stage");
-  if (hubStage && games[0] && games[0].slides) {
-    hubStage.outerHTML = stage(games[0].slides, { base: "", label: "Em destaque: Injection " + games[0].nome, href: "jogos/" + games[0].slug + ".html", cta: "Ver planos", titulo: "Injection: scripts e macros para jogos" });
-  }
-
   var grid = document.getElementById("games-grid");
   if (grid) {
     grid.innerHTML = games.map(function (g) {
