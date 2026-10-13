@@ -1,6 +1,6 @@
 (function () {
-  var cfg = window.INJECTION_CONFIG || {};
-  var games = window.INJECTION_GAMES || [];
+  var cfg = window.NOCTIS_CONFIG || {};
+  var games = window.NOCTIS_GAMES || [];
   var gameSlug = document.body.getAttribute("data-game");
 
   function esc(t) {

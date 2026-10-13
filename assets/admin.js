@@ -2,7 +2,7 @@
 // Tudo passa por funções admin_* do Supabase, que conferem se o e-mail logado está na tabela admins.
 (function () {
   var I = window.INJ || {};
-  var cfg = I.cfg || window.INJECTION_CONFIG || {};
+  var cfg = I.cfg || window.NOCTIS_CONFIG || {};
   var esc = I.esc || function (s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return "&#" + c.charCodeAt(0) + ";"; }); };
   var login = document.getElementById("login");
   var painel = document.getElementById("painel");

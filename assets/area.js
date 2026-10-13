@@ -2,7 +2,7 @@
 // e painel com chave, plano, PCs e download.
 (function () {
   var I = window.INJ || {};
-  var cfg = I.cfg || window.INJECTION_CONFIG || {};
+  var cfg = I.cfg || window.NOCTIS_CONFIG || {};
   var esc = I.esc;
   var login = document.getElementById("login");
   var painel = document.getElementById("painel");
