@@ -854,8 +854,10 @@ body, .game, .dash__card {
 }
 .marca__inner { display: flex; flex-direction: column; align-items: center; }
 .marca__logo { width: clamp(120px, 20vw, 180px); height: auto; filter: drop-shadow(0 0 24px rgba(255, 45, 63, .45)); animation: marca-entra .9s cubic-bezier(.2, .8, .2, 1) both, marca-flutua 5s ease-in-out 1s infinite; overflow: visible; }
-.marca__box { stroke-dasharray: 740; stroke-dashoffset: 740; animation: marca-traco 1.4s ease .2s forwards; }
-.marca__syringe { stroke-dasharray: 420; stroke-dashoffset: 420; animation: marca-traco 1.2s ease .6s forwards; }
+.marca__box { stroke-dasharray: 1; stroke-dashoffset: 1; animation: marca-traco 1.4s ease .2s forwards; }
+.marca__syringe { opacity: 0; animation: marca-aparece .8s ease .7s forwards; }
+.marca__syringe rect[pathLength] { stroke-dasharray: 1; stroke-dashoffset: 1; animation: marca-traco 1s ease .7s forwards; }
+.marca__anel { transform-origin: 100px 100px; animation: marca-gira 24s linear infinite; }
 .marca__plunger { animation: marca-embolo 3.2s ease-in-out 1.6s infinite; }
 .marca__liquid { transform-box: fill-box; transform-origin: 50% 100%; transform: scaleY(0); animation: marca-liquido 3.2s ease-in-out 1.6s infinite; }
 .marca__drop { opacity: 0; animation: marca-gota 3.2s ease-in 1.6s infinite; }
@@ -884,7 +886,9 @@ body, .game, .dash__card {
 @keyframes marca-flutua { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
 @keyframes marca-traco { to { stroke-dashoffset: 0; } }
 @keyframes marca-embolo { 0%, 15% { transform: translateY(0); } 55%, 70% { transform: translateY(26px); } 100% { transform: translateY(0); } }
-@keyframes marca-liquido { 0%, 15% { transform: scaleY(.95); } 55%, 70% { transform: scaleY(.25); } 100% { transform: scaleY(.95); } }
+@keyframes marca-liquido { 0%, 15% { transform: scaleY(1); } 55%, 70% { transform: scaleY(.49); } 100% { transform: scaleY(1); } }
+@keyframes marca-aparece { to { opacity: 1; } }
+@keyframes marca-gira { to { transform: rotate(360deg); } }
 @keyframes marca-gota { 0%, 45% { opacity: 0; transform: translate(0, 0); } 50% { opacity: 1; transform: translate(0, 0); } 80% { opacity: 0; transform: translate(4px, 30px); } 100% { opacity: 0; } }
 @keyframes marca-sobe { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @keyframes marca-letra { to { opacity: 1; transform: none; } }
@@ -894,7 +898,8 @@ body, .game, .dash__card {
 @media (max-width: 600px) { .marca { padding: 40px 0 80px; } .marca__sub { font-size: 1rem; padding: 0 8px; } }
 @media (prefers-reduced-motion: reduce) {
   .marca *, .marca__grid, .marca__glow { animation: none !important; }
-  .marca__box, .marca__syringe { stroke-dashoffset: 0; }
-  .marca__liquid { transform: scaleY(.95); }
+  .marca__box, .marca__syringe rect[pathLength] { stroke-dashoffset: 0; }
+  .marca__syringe { opacity: 1; }
+  .marca__liquid { transform: scaleY(1); }
   .marca__nome span, .marca__tag, .marca__sub, .marca__cta, .marca__chips { opacity: 1; transform: none; }
 }

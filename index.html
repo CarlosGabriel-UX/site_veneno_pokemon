@@ -41,26 +41,39 @@
         <svg class="marca__logo" viewBox="0 0 200 200" aria-hidden="true">
           <defs>
             <linearGradient id="mg" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#ff2d3f"/><stop offset="1" stop-color="#d4d4d8"/>
+              <stop offset="0" stop-color="#ff4757"/><stop offset=".55" stop-color="#ff2d3f"/><stop offset="1" stop-color="#e4e4e7"/>
             </linearGradient>
-            <linearGradient id="ml" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#ff5d6b"/><stop offset="1" stop-color="#c51626"/>
+            <linearGradient id="mm" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#8e8e95"/><stop offset=".45" stop-color="#f4f4f5"/><stop offset="1" stop-color="#71717a"/>
             </linearGradient>
-            <clipPath id="mbarrel"><rect x="76" y="58" width="48" height="64" rx="4"/></clipPath>
+            <linearGradient id="ml" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#a5101d"/><stop offset=".4" stop-color="#ff3b4c"/><stop offset="1" stop-color="#8f0d18"/>
+            </linearGradient>
+            <radialGradient id="mf" cx=".5" cy=".45" r=".6">
+              <stop offset="0" stop-color="#2a0a0e"/><stop offset=".7" stop-color="#0d0d10"/><stop offset="1" stop-color="#060607"/>
+            </radialGradient>
+            <clipPath id="mbarrel"><rect x="83" y="66" width="34" height="57" rx="3"/></clipPath>
           </defs>
-          <rect class="marca__box" x="8" y="8" width="184" height="184" rx="30" fill="#09090b" stroke="url(#mg)" stroke-width="6"/>
-          <g transform="rotate(-45 100 100)">
-            <g clip-path="url(#mbarrel)"><rect class="marca__liquid" x="76" y="58" width="48" height="64" fill="url(#ml)"/></g>
-            <g class="marca__plunger" fill="none" stroke="url(#mg)" stroke-width="6" stroke-linecap="round">
-              <path d="M82 36h36M100 36v22"/>
+          <path class="marca__box" pathLength="1" d="M100 8 180 54v92l-80 46-80-46V54Z" fill="url(#mf)" stroke="url(#mg)" stroke-width="5" stroke-linejoin="round"/>
+          <path class="marca__anel" d="M100 24 166 62v76l-66 38-66-38V62Z" fill="none" stroke="#ff2d3f" stroke-opacity=".22" stroke-width="1.5" stroke-dasharray="3 5"/>
+          <g transform="translate(95 95) scale(1.12) rotate(-45) translate(-100 -98)">
+            <g clip-path="url(#mbarrel)"><rect class="marca__liquid" x="83" y="72" width="34" height="51" fill="url(#ml)"/></g>
+            <g class="marca__plunger">
+              <rect x="80" y="22" width="40" height="8" rx="4" fill="url(#mm)"/>
+              <rect x="96" y="29" width="8" height="38" fill="url(#mm)"/>
+              <rect x="83" y="64" width="34" height="8" rx="2" fill="#1c1c20" stroke="#52525b" stroke-width="1"/>
             </g>
-            <g class="marca__syringe" fill="none" stroke="url(#mg)" stroke-width="6" stroke-linecap="round">
-              <rect x="76" y="58" width="48" height="64" rx="4"/>
-              <path d="M100 122v34M84 80h14M84 96h14"/>
+            <g class="marca__syringe" fill="none" stroke-linecap="round">
+              <rect x="70" y="56" width="60" height="8" rx="4" fill="url(#mm)" stroke="none"/>
+              <rect pathLength="1" x="80" y="62" width="40" height="64" rx="6" stroke="url(#mg)" stroke-width="4"/>
+              <path d="M84 82h9M84 92h6M84 102h9M84 112h6" stroke="#fff" stroke-opacity=".55" stroke-width="2"/>
+              <rect x="111" y="68" width="3" height="52" rx="1.5" fill="#fff" fill-opacity=".28" stroke="none"/>
+              <path d="M90 126h20l-6 12h-8Z" fill="url(#mm)" stroke="none"/>
+              <path d="M100 138v34" stroke="#d4d4d8" stroke-width="3"/>
             </g>
           </g>
-          <circle class="marca__drop" cx="142" cy="142" r="4" fill="#ff2d3f"/>
-          <circle class="marca__drop marca__drop--2" cx="142" cy="142" r="3" fill="#ff2d3f"/>
+          <circle class="marca__drop" cx="155" cy="155" r="4.5" fill="#ff2d3f"/>
+          <circle class="marca__drop marca__drop--2" cx="155" cy="155" r="3" fill="#ff2d3f"/>
         </svg>
         <p class="marca__tag"><span class="marca__dot" aria-hidden="true"></span>scripts e macros para jogos</p>
         <h1 class="marca__nome" id="marca-titulo" aria-label="Injection">
