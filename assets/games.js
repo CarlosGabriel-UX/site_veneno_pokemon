@@ -2,7 +2,7 @@
 // Para adicionar um jogo: copie um bloco abaixo, mude o "slug" e crie jogos/<slug>.html
 // (basta copiar jogos/optpokemon.html e trocar o data-game).
 // status: "disponivel" mostra a página completa; "em-breve" mostra o card desativado na vitrine.
-window.INJECTION_GAMES = [
+window.NOCTIS_GAMES = [
   {
     slug: "optpokemon",
     nome: "OptPokemon",
