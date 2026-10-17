@@ -209,7 +209,6 @@
   var ano = document.getElementById("ano");
   if (ano) ano.textContent = new Date().getFullYear();
 
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // Slider do palco
   document.querySelectorAll("[data-stage]").forEach(function (st) {
@@ -322,7 +321,7 @@
     var chao = function () {
       // Chão em perspectiva que corre na direção de quem olha
       var hz = H * 0.6, cxm = W / 2, fundo = H - hz;
-      if (!reduce) piso = (piso + 0.012) % 1;
+      piso = (piso + 0.012) % 1;
       cx.lineWidth = 1;
       if (!chao.g) { chao.g = cx.createLinearGradient(0, hz, 0, H); chao.g.addColorStop(0, "rgba(196,210,255,0)"); chao.g.addColorStop(0.45, "rgba(196,210,255,.16)"); chao.g.addColorStop(1, "rgba(196,210,255,.24)"); }
       cx.globalAlpha = 1; cx.strokeStyle = chao.g;
@@ -345,7 +344,7 @@
         cx.globalAlpha = 0.25 + 0.6 * Math.abs(Math.sin(s.f));
         cx.fillRect(s.x, s.y, s.r * 1.6, s.r * 1.6);
       });
-      if (!reduce && Math.random() < 0.008 && cadentes.length < 2) {
+      if (Math.random() < 0.008 && cadentes.length < 2) {
         cadentes.push({ x: Math.random() * W * 0.8 + W * 0.1, y: Math.random() * H * 0.35, vx: -(4 + Math.random() * 3), vy: 2 + Math.random() * 1.5, vida: 1 });
       }
       cadentes = cadentes.filter(function (c) {
