@@ -223,7 +223,7 @@
       st.style.setProperty("--c", slides[cur].style.getPropertyValue("--c"));
       restart();
     }
-    function restart() { clearInterval(timer); if (!reduce && slides.length > 1) timer = setInterval(function () { go(cur + 1); }, 6500); }
+    function restart() { clearInterval(timer); if (slides.length > 1) timer = setInterval(function () { go(cur + 1); }, 6500); }
     st.querySelector(".stage__next").addEventListener("click", function () { go(cur + 1); });
     dots.forEach(function (d, i) { d.addEventListener("click", function () { go(i); }); });
     go(0);
@@ -257,16 +257,16 @@
     seg -= 20;
     for (var n = 0; n < 6; n++) { seg += 3; linha(); }
     tick();
-    if (!reduce) { setInterval(tick, 1000); setInterval(linha, 1600); }
+    setInterval(tick, 1000); setInterval(linha, 1600);
   });
 
   // ===== Animações =====
-  var finePointer = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var finePointer = window.matchMedia && (window.matchMedia("(any-hover: hover) and (any-pointer: fine)").matches || window.matchMedia("(hover: hover) and (pointer: fine)").matches);
 
   // Entrada ao rolar (com atraso em cascata dentro de cada grupo)
   var revealSel = ".section__head, .intro, .pricing__title, .game, .card, .steps li, .plan, .faq details, .cta__inner, .pricing__foot, .demo, .news__status, .news__log > li, .compare, .dash__card";
   var revealEls = document.querySelectorAll(revealSel);
-  if (!reduce && "IntersectionObserver" in window) {
+  if ("IntersectionObserver" in window) {
     revealEls.forEach(function (el) {
       var sibs = el.parentElement ? Array.prototype.filter.call(el.parentElement.children, function (c) { return c.matches(revealSel); }) : [];
       el.style.setProperty("--d", (Math.max(0, sibs.indexOf(el)) * 90) + "ms");
@@ -282,7 +282,7 @@
 
   // Parallax do palco seguindo o mouse
   document.querySelectorAll("[data-stage]").forEach(function (st) {
-    if (reduce || !finePointer) return;
+    if (!finePointer) return;
     st.addEventListener("pointermove", function (e) {
       var r = st.getBoundingClientRect();
       st.style.setProperty("--mx", ((e.clientX - r.left) / r.width - 0.5).toFixed(3));
@@ -292,7 +292,7 @@
   });
 
   // Cards com inclinação 3D e reflexo de luz
-  if (!reduce && finePointer) {
+  if (finePointer) {
     document.querySelectorAll(".plan, .game, .card").forEach(function (el) {
       el.classList.add("tilt");
       el.addEventListener("pointermove", function (e) {
@@ -322,7 +322,7 @@
     var chao = function () {
       // Chão em perspectiva que corre na direção de quem olha
       var hz = H * 0.6, cxm = W / 2, fundo = H - hz;
-      piso = (piso + 0.012) % 1;
+      if (!reduce) piso = (piso + 0.012) % 1;
       cx.lineWidth = 1;
       if (!chao.g) { chao.g = cx.createLinearGradient(0, hz, 0, H); chao.g.addColorStop(0, "rgba(196,210,255,0)"); chao.g.addColorStop(0.45, "rgba(196,210,255,.16)"); chao.g.addColorStop(1, "rgba(196,210,255,.24)"); }
       cx.globalAlpha = 1; cx.strokeStyle = chao.g;
@@ -345,7 +345,7 @@
         cx.globalAlpha = 0.25 + 0.6 * Math.abs(Math.sin(s.f));
         cx.fillRect(s.x, s.y, s.r * 1.6, s.r * 1.6);
       });
-      if (Math.random() < 0.008 && cadentes.length < 2) {
+      if (!reduce && Math.random() < 0.008 && cadentes.length < 2) {
         cadentes.push({ x: Math.random() * W * 0.8 + W * 0.1, y: Math.random() * H * 0.35, vx: -(4 + Math.random() * 3), vy: 2 + Math.random() * 1.5, vida: 1 });
       }
       cadentes = cadentes.filter(function (c) {
@@ -360,8 +360,7 @@
     };
     medir();
     var tMedir; window.addEventListener("resize", function () { clearTimeout(tMedir); tMedir = setTimeout(medir, 150); });
-    if (reduce) desenhar();
-    else {
+    {
       var visivel = true;
       if ("IntersectionObserver" in window) new IntersectionObserver(function (e) { visivel = e[0].isIntersecting; }).observe(ceu);
       var ultimo = 0;
@@ -375,7 +374,7 @@
 
   // Lua do topo acompanha o mouse
   var marca = document.querySelector(".marca");
-  if (marca && !reduce && finePointer) {
+  if (marca && finePointer) {
     var pend = null;
     marca.addEventListener("pointermove", function (e) {
       if (pend) return;
@@ -391,7 +390,7 @@
   }
 
   // Barra de leitura
-  if (!reduce) {
+  {
     var barra = document.createElement("div");
     barra.className = "progresso"; barra.setAttribute("aria-hidden", "true");
     document.body.appendChild(barra);
@@ -406,7 +405,7 @@
   // Linha entre os passos se desenha ao aparecer
   var passos = document.querySelector(".steps");
   if (passos) {
-    if (reduce || !("IntersectionObserver" in window)) passos.classList.add("is-in");
+    if (!("IntersectionObserver" in window)) passos.classList.add("is-in");
     else {
       var ioP = new IntersectionObserver(function (e) { if (e[0].isIntersecting) { passos.classList.add("is-in"); ioP.disconnect(); } }, { threshold: 0.3 });
       ioP.observe(passos);
@@ -425,7 +424,7 @@
   function countTo(el, target) {
     var to = parseFloat(target.replace(",", "."));
     var from = parseFloat(el.textContent.replace(",", ".")) || 0;
-    if (reduce || from === to) { el.textContent = target; return; }
+    if (from === to) { el.textContent = target; return; }
     var t0 = performance.now(), dur = 450;
     (function step(now) {
       var k = Math.min(1, (now - t0) / dur), ease = 1 - Math.pow(1 - k, 3);

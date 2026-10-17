@@ -21,6 +21,7 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body {
   margin: 0;
   font-family: var(--mono);
@@ -58,7 +59,7 @@ p { margin: 0 0 1em; }
 /* Nav */
 .nav {
   position: sticky; top: 0; z-index: 50;
-  background: rgba(9, 9, 11, .85); backdrop-filter: blur(12px);
+  background: rgba(9, 9, 11, .85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
 }
 .nav__inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
@@ -215,11 +216,7 @@ p { margin: 0 0 1em; }
   .hero__stats { gap: 1.5rem; }
   .term__body { font-size: 12.5px; }
 }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .caret { animation: none; }
-  .btn, .card { transition: none; }
-}
+
 
 /* ===== Tema hacker ===== */
 body { background: var(--bg); }
@@ -272,9 +269,7 @@ h3 { font-weight: 700; letter-spacing: .01em; }
   92% { clip-path: inset(20% 0 60% 0); transform: translateX(-3px); }
   94% { clip-path: inset(45% 0 35% 0); transform: translateX(2px); }
 }
-@media (prefers-reduced-motion: reduce) {
-  .glitch::before, .glitch::after { animation: none; }
-}
+
 
 /* Vitrine de jogos */
 .games { align-items: stretch; }
@@ -341,7 +336,7 @@ h3 { font-weight: 700; letter-spacing: .01em; }
 .stage__bubble {
   position: absolute; left: 0; top: 24%; max-width: 330px; padding: 18px 22px;
   background: rgba(70, 70, 74, .55); border: 1px solid rgba(255, 255, 255, .18); border-radius: 14px;
-  backdrop-filter: blur(8px); box-shadow: -10px 10px 0 -2px rgba(60, 60, 64, .55), var(--shadow);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); box-shadow: -10px 10px 0 -2px rgba(60, 60, 64, .55), var(--shadow);
   transform: translateX(-20px); opacity: 0; transition: all .7s .2s;
 }
 .stage__slide.is-active .stage__bubble { transform: none; opacity: 1; }
@@ -388,9 +383,7 @@ h3 { font-weight: 700; letter-spacing: .01em; }
   .stage__nav { flex-direction: row; align-items: center; width: 100%; justify-content: space-between; }
   .stage__word { left: 0; text-align: center; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .stage__slide, .stage__poke, .stage__bubble, .stage__word { transition: none; }
-}
+
 .brand { font-family: var(--display); text-transform: uppercase; letter-spacing: .12em; font-size: 1.3rem; }
 .brand strong { color: var(--neon); text-shadow: none; }
 .nav__links a:not(.btn) { color: #d6d6da; }
@@ -552,10 +545,7 @@ h3 { font-weight: 700; letter-spacing: .01em; }
 .pricing__blob { animation: breathe 9s ease-in-out infinite; }
 @keyframes breathe { 0%, 100% { transform: translate(-50%, -50%) rotate(-18deg) scale(1); } 50% { transform: translate(-50%, -52%) rotate(-12deg) scale(1.08); } }
 
-@media (prefers-reduced-motion: reduce) {
-  .stage__poke, .stage__cta, .pricing__blob { animation: none; }
-  .reveal { opacity: 1; translate: none; }
-}
+
 @media (max-width: 720px) { .nav--scrolled .nav__links { top: 62px; } }
 
 /* ===== Cor por jogo ===== */
@@ -590,7 +580,7 @@ body, .game, .dash__card {
 .status--manutencao, .status--dev { background: rgba(245, 197, 66, .1); color: #f5c542; border-color: rgba(245, 197, 66, .35); }
 .status--offline { background: rgba(196, 210, 255, .1); color: #ff6b78; border-color: rgba(196, 210, 255, .35); }
 .intro .status { margin: 0 auto 1rem; display: flex; }
-.stage__bar > .status { position: absolute; left: 0; top: -44px; backdrop-filter: blur(8px); background: rgba(10, 30, 18, .7); }
+.stage__bar > .status { position: absolute; left: 0; top: -44px; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); background: rgba(10, 30, 18, .7); }
 .stage__bar > .status--dev { background: rgba(40, 32, 8, .75); }
 @media (max-width: 520px) { .stage__bar > .status { left: 50%; transform: translateX(-50%); white-space: nowrap; } }
 
@@ -637,7 +627,7 @@ body, .game, .dash__card {
 .news { display: grid; grid-template-columns: 320px 1fr; gap: 22px; align-items: start; }
 .news__status, .news__log > li {
   border-radius: 22px; padding: 24px; border: 1px solid rgba(255, 255, 255, .14);
-  background: linear-gradient(160deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .015)); backdrop-filter: blur(14px);
+  background: linear-gradient(160deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .015)); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
 }
 .news__ver { font-family: var(--display); font-size: 3.4rem; line-height: 1; margin: .4em 0 .2em; color: #fff; }
 .news__log { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; position: relative; }
@@ -656,7 +646,7 @@ body, .game, .dash__card {
 .compare h3 { text-align: center; font-family: var(--display); font-weight: 400; font-size: 2rem; letter-spacing: .02em; margin-bottom: 18px; }
 .compare__scroll {
   overflow-x: auto; border-radius: 22px; border: 1px solid rgba(255, 255, 255, .18);
-  background: linear-gradient(160deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .02)); backdrop-filter: blur(22px);
+  background: linear-gradient(160deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .02)); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
 }
 .compare table { width: 100%; border-collapse: collapse; min-width: 520px; }
 .compare th, .compare td { padding: 14px 18px; text-align: center; border-bottom: 1px solid rgba(255, 255, 255, .08); font-size: .95rem; }
@@ -680,7 +670,7 @@ body, .game, .dash__card {
 .dash__card {
   position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 10px; align-items: flex-start;
   border-radius: 22px; padding: 24px; border: 1px solid rgba(255, 255, 255, .14);
-  background: linear-gradient(160deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .015)); backdrop-filter: blur(14px);
+  background: linear-gradient(160deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .015)); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
 }
 .dash__card > small { color: var(--muted); text-transform: uppercase; letter-spacing: .1em; font-size: .72rem; font-weight: 700; }
 .dash__card h2, .dash__card h3 { margin: 0; }
@@ -712,7 +702,7 @@ body, .game, .dash__card {
   .dash__grid { grid-template-columns: 1fr; }
   .dash__card--sub, .dash__card--wide { grid-column: auto; }
 }
-@media (prefers-reduced-motion: reduce) { .status i, .app__log li { animation: none; } }
+
 .hero__glow { background: radial-gradient(circle, color-mix(in srgb, var(--neon) 18%, transparent), transparent 60%); }
 .compare thead .is-hot { color: #fff; }
 @media (max-width: 600px) {
@@ -724,7 +714,7 @@ body, .game, .dash__card {
 
 /* ===== Checkout ===== */
 .checkout { padding: 0; border: 0; background: transparent; color: var(--text); width: min(440px, calc(100% - 32px)); max-height: calc(100% - 32px); overflow: visible; }
-.checkout::backdrop { background: rgba(5, 5, 7, .72); backdrop-filter: blur(6px); }
+.checkout::backdrop { background: rgba(5, 5, 7, .72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
 .checkout__box {
   position: relative; display: grid; gap: 14px; padding: 30px 26px 24px; border-radius: 26px;
   background: linear-gradient(160deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .03)), #121214;
@@ -873,10 +863,7 @@ body, .game, .dash__card {
 @keyframes marca-cursor { 50% { opacity: 0; } }
 @keyframes marca-rola { 0% { opacity: 0; transform: translateY(0); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(14px); } }
 @media (max-width: 600px) { .marca { padding: 40px 0 80px; } .marca__sub { font-size: 1rem; padding: 0 8px; } }
-@media (prefers-reduced-motion: reduce) {
-  .marca *, .marca__glow { animation: none !important; }
-  .marca__nome span, .marca__tag, .marca__sub, .marca__cta, .marca__chips { opacity: 1; transform: none; }
-}
+
 
 /* ===== Noctis: céu, lua e luz ===== */
 body::before {
@@ -935,9 +922,4 @@ body::before {
 .faq details summary { transition: color .2s; }
 .faq details:hover summary { color: #fff; }
 
-@media (prefers-reduced-motion: reduce) {
-  .marca__halo, .marca__halo::after { animation: none !important; }
-  .marca__lua { transform: none; }
-  .steps::before { transform: none; transition: none; }
-  .progresso { display: none; }
-}
+
